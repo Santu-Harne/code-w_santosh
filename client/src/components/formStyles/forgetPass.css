@@ -1,0 +1,44 @@
+
+  /* forget.css*/
+
+  .container-fluid {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+.container-fluid .card {
+    height: 100vh;
+    width: 100%;
+    position: relative;
+    display: contents;
+}
+
+  form.verifyForm {
+    width: 601px;
+    height: 90%;
+    display: block;
+    box-shadow: 10px 10px 10px 15px darkblue;
+    padding: 130px ;
+}
+
+.card {
+    display: contents;
+}
+
+.skpNow {
+    margin: 0px 0px 51px 24px;
+}
+.vrfyEmail {
+    margin: 0px 0px 64px 0px;
+}
+
+.nextBtn {
+    position: absolute;
+    right: 470px;
+    bottom: 84px;
+}
+.tryAgn{
+    color: rgb(107, 108, 110);
+}
