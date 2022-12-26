@@ -234,7 +234,7 @@ button.btn.returnBtn:hover {
 }
 
 /******* next button ********/
-button.btn.nxt {
+.btn.nxt {
     border: 1px;
     /* width: 100px; */
     background: #1471e6;

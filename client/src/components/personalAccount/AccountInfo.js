@@ -116,18 +116,18 @@ const AccountInfo = () => {
                                                     <input type="radio" name='Account_Plan' value="Testing Account"
                                                         checked={personalAccInfo.Account_Plan === "Account_Plan"} onChange={readValue}
                                                         className="form-check-input" />Testing Account</label>
-
-                                                <input type="radio" name="plan" id="plan" className="form-check-input" />
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div className='nextBtn float-end'>
-                                        <NavLink to={'/BusinessDetails'} className="nav-link">
-                                            <button className='btn nxt'>Next</button>
-                                        </NavLink>
+                                    <div className="row">
+                                        <div className="col-md-8">
+                                            <NavLink to={'/BusinessDetails'} className="nav-link bg-success float-end me-3 py-2 px-3 mb-2 rounded">
+                                                Next
+                                            </NavLink>
+                                        </div>
                                     </div>
                                 </form>
+
                             </div>
 
                             {/*******************Return to Home*******

@@ -5,6 +5,7 @@ import { NavLink } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
 import '../formStyles/styleone.css'
 import { DataContext } from '../../GlobalContext';
+import { toast } from 'react-toastify';
 
 const CorporateCard = () => {
 
@@ -31,18 +32,14 @@ const CorporateCard = () => {
         try {
             await axios.post('/auth/register', corpAccInfo)
                 .then(res => {
-                    console.log("after register =", res.data.data)
+                    // console.log("after register =", res.data)
+                    toast.success(res.data.msg)
                     navigate('/Completed')
-                }).catch(err => console.log(err.message))
+                }).catch(err => toast.error(err.response.data.msg))
         } catch (error) {
             console.log(error.message);
         }
     }
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault()
-    //     console.log(corpAccInfo)
-    //     navigate('/Completed')
-    // }
 
 
     return (

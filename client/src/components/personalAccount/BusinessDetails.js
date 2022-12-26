@@ -110,13 +110,23 @@ const BusinessDetails = () => {
                                             placeholder='Mobile number' value={personalAccInfo.Mobile} onChange={readValue} className="form-control" />
                                     </div>
 
-                                    <div className='nextBtn float-end'>
+                                    {/* <div className='nextBtn float-end'>
                                         <NavLink to={'/CardDetails'} className="nav-link">
                                             <button className='btn nxt'>Next</button>
                                         </NavLink>
-                                    </div>
+                                    </div> */}
 
+                                    <div className="row">
+                                        <div className="col-md-8">
+                                            <NavLink to={'/CardDetails'} className="nav-link bg-success float-end me-3 py-2 px-3 mb-2 rounded">
+                                                Next
+                                            </NavLink>
+                                        </div>
+                                    </div>
                                 </form>
+
+
+
                             </div>
                         </div>
                     </div>

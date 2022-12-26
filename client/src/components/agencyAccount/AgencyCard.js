@@ -5,6 +5,8 @@ import { NavLink } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
 import '../formStyles/styleone.css'
 import { DataContext } from '../../GlobalContext';
+import { toast } from 'react-toastify';
+
 
 const AgencyCard = () => {
 
@@ -31,9 +33,10 @@ const AgencyCard = () => {
         try {
             await axios.post('/auth/register', agencyAccInfo)
                 .then(res => {
-                    console.log("after register =", res.data.data)
+                    // console.log("after agency account register =", res.data)
+                    toast.success(res.data.msg)
                     navigate('/Completed')
-                }).catch(err => console.log(err.message))
+                }).catch(err => toast.error(err.response.data.msg))
         } catch (error) {
             console.log(error.message);
         }

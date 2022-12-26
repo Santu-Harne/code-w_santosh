@@ -115,10 +115,12 @@ const AgencyAccInfo = () => {
                                         </div>
                                     </div>
 
-                                    <div className='nextBtn float-end'>
-                                        <NavLink to={'/AgencyBusiness'} className="nav-link">
-                                            <button className='btn nxt'>Next</button>
-                                        </NavLink>
+                                    <div className="row">
+                                        <div className="col-md-8">
+                                            <NavLink to={'/AgencyBusiness'} className="nav-link bg-success float-end me-3 py-2 px-3 mb-2 rounded">
+                                                Next
+                                            </NavLink>
+                                        </div>
                                     </div>
                                 </form>
                             </div>

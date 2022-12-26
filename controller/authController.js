@@ -16,7 +16,7 @@ const authController = {
             const { Account_Type, Name, Email, Password, Account_Plan, Team_Size, Address, Mobile, Business_Type, Document_Type, Document_Number, Document_Location, Name_On_Card, Card_Number, Expire_Date, isVerified } = req.body
 
             const encPass = await bcrypt.hash(Password, 10)
-            const registerToken = regToken({ password: Password })
+            const registerToken = regToken({ email: Email, password: Password })
 
             const userData = {
                 Account_Type,
@@ -37,24 +37,31 @@ const authController = {
                 isVerified,
                 registerToken
             }
-            // let sql1 = 'ALTER TABLE Account_Details ADD COLUMN registerToken varchar(255) NOT NULL';
-            // con.query(sql1, function (err, response) {
-            //     if (err) assert.deepStrictEqual(err, null);
-            //     // console.log(`registerToken column created`)
-            // })
 
-            let sql = `INSERT INTO Account_Details SET ?`
-
-            con.query(sql, userData, function (err, response) {
+            let sql1 = `SELECT * FROM Account_Details WHERE Email=?`
+            con.query(sql1, [Email], function (err, response) {
                 if (err) assert.deepStrictEqual(err, null);
-                // console.log(`Inserted successfully`)
 
-                const template = regTemplate(Name, Email, Password, registerToken)
-                const subject = 'Confirmation of registration with Code-W'
-                sendingMail(Email, subject, template)
+                const user = response[0];
+
+                if (user)
+                    return res.status(StatusCodes.NOT_ACCEPTABLE).json({ msg: "Account exists with given EmailId, try another one..!" })
+
+                else {
+                    let sql = `INSERT INTO Account_Details SET ?`
+
+                    con.query(sql, userData, function (err, response) {
+                        if (err) assert.deepStrictEqual(err, null);
+                        // console.log(`Inserted successfully`)
+
+                        const template = regTemplate(Name, Email, Password, registerToken)
+                        const subject = 'Confirmation of registration with Code-W'
+                        sendingMail(Email, subject, template)
+                    })
+                    res.status(StatusCodes.OK).json({ msg: "User registered successfully", data: userData })
+                }
             })
 
-            res.status(StatusCodes.OK).json({ msg: "User registered successfully", data: userData })
         } catch (err) {
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ msg: err.message })
         }
@@ -128,14 +135,6 @@ const authController = {
                         res.json({ msg: "Email verified successfully" })
                     })
                 }
-                // if (user.registerToken) {
-                //     let sql2 = `ALTER TABLE account_details DROP COLUMN registerToken`
-                //     con.query(sql2, function (err, response) {
-                //         if (err) assert.deepStrictEqual(err, null);
-
-                //         console.log(`registerToken column deleted`)
-                //     })
-                // }
             })
 
 
@@ -163,7 +162,7 @@ const authController = {
     login: async (req, res) => {
         try {
             const { Email, Password } = req.body
-            console.log({ Email, Password });
+            // console.log({ Email, Password });
 
             con.query(`SELECT * FROM Account_Details WHERE Email=?`, Email, function (err, response) {
                 if (err) assert.deepStrictEqual(err, null);
@@ -176,6 +175,7 @@ const authController = {
                     // compare password
                     bcrypt.compare(Password, extUser.Password, (err, match) => {
                         if (err) assert.deepStrictEqual(err, null);
+
                         if (!extUser)
                             return res.status(StatusCodes.NOT_FOUND).json({ msg: "User doesn't exists.." })
 
@@ -183,7 +183,7 @@ const authController = {
                             return res.status(StatusCodes.BAD_REQUEST).json({ msg: "Invalid Password" })
                         }
                         if (extUser.isVerified != 'true')
-                            return res.status(StatusCodes.OK).json({ msg: "Your account is not verified, Please verify your account for login" })
+                            return res.status(StatusCodes.BAD_REQUEST).json({ msg: "Your account is not verified, Please verify your account for login" })
                         else {
                             // generate token
                             const accessToken = createAccessToken({ id: extUser.id })

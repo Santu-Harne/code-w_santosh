@@ -32,10 +32,10 @@ const CardDetails = () => {
         try {
             await axios.post('/auth/register', personalAccInfo)
                 .then(res => {
-                    console.log("after register =", res.data.data)
+                    // console.log("after register =", res.data)
                     toast.success(res.data.msg)
                     navigate('/Completed')
-                }).catch(err => toast.error(err.message))
+                }).catch(err => toast.error(err.response.data.msg))
         } catch (error) {
             console.log(error.message)
         }
