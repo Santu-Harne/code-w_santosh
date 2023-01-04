@@ -6,8 +6,15 @@ const { regToken } = require('../util/regToken')
 const { StatusCodes } = require('http-status-codes')
 const con = require('../db/connectionString')
 const sendingMail = require('../middleware/mail')
-const regTemplate = require('../template/regTemplate')
 const resetPasswordTemplate = require('../template/resetPasswordTemplate')
+const registerTemplate = require('../template/registerTemplate')
+const verifyTemplate = require('../template/verifyTemplate')
+
+const axios = require('axios')
+
+const axiosIns = axios.create({
+    baseURL: 'http://localhost:3000'
+})
 
 
 const authController = {
@@ -54,9 +61,15 @@ const authController = {
                         if (err) assert.deepStrictEqual(err, null);
                         // console.log(`Inserted successfully`)
 
-                        const template = regTemplate(Name, Email, Password, registerToken)
                         const subject = 'Confirmation of registration with Code-W'
-                        sendingMail(Email, subject, template)
+                        if (isVerified === false) {
+                            const template = verifyTemplate(Name, registerToken)
+                            sendingMail(Email, subject, template)
+                        }
+                        else if (isVerified === true) {
+                            const template = registerTemplate(Name, Email)
+                            sendingMail(Email, subject, template)
+                        }
                     })
                     res.status(StatusCodes.OK).json({ msg: "User registered successfully", data: userData })
                 }
@@ -64,6 +77,15 @@ const authController = {
 
         } catch (err) {
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ msg: err.message })
+        }
+    },
+    upload: async (req, res) => {
+        try {
+            const uploadedFile = req.file;
+
+            res.json({ data: uploadedFile })
+        } catch (err) {
+            return res.status(500).json({ msg: err.message })
         }
     },
     allUsers: async (req, res) => {
@@ -83,11 +105,11 @@ const authController = {
     },
     getUser: async (req, res) => {
         try {
-            const id = req.params.id
+            const email = req.params.email
 
             // read single user data
-            let sql = `SELECT * FROM Account_Details WHERE id=?`
-            con.query(sql, [id], function (err, response) {
+            let sql = `SELECT * FROM Account_Details WHERE Email=?`
+            con.query(sql, [email], function (err, response) {
                 if (err) assert.deepStrictEqual(err, null);
                 // console.log(`data = `, response)
 
@@ -100,7 +122,7 @@ const authController = {
     updateUser: async (req, res) => {
         try {
             const userId = req.params.id
-            const { id, Name, Email, Team_Size, Address, Mobile, Business_Type, Document_Type, Document_Number, Document_Location, Name_On_Card, Card_Number, Expire_Date } = req.body
+            const { Name, Email, Team_Size, Address, Mobile, Business_Type, Document_Type, Document_Number, Document_Location, Name_On_Card, Card_Number, Expire_Date } = req.body
 
             let sql = 'UPDATE Account_Details SET Name = ?, Email = ?,Team_Size = ?, Address = ?, Mobile = ?, Document_Type = ?, Document_Number = ?, Document_Location = ?, Name_On_Card = ?, Card_Number = ?, Expire_Date = ?  WHERE id =?'
 
@@ -129,7 +151,7 @@ const authController = {
                 else {
                     let sql = `UPDATE account_details SET isVerified = ?  WHERE registerToken = ?`
 
-                    con.query(sql, ["true", token], function (err, response) {
+                    con.query(sql, [true, token], function (err, response) {
                         if (err) assert.deepStrictEqual(err, null);
 
                         res.json({ msg: "Email verified successfully" })
@@ -182,7 +204,7 @@ const authController = {
                         if (!match) {
                             return res.status(StatusCodes.BAD_REQUEST).json({ msg: "Invalid Password" })
                         }
-                        if (extUser.isVerified != 'true')
+                        if (extUser.isVerified != true)
                             return res.status(StatusCodes.BAD_REQUEST).json({ msg: "Your account is not verified, Please verify your account for login" })
                         else {
                             // generate token
@@ -243,7 +265,6 @@ const authController = {
     forgotPassword: async (req, res) => {
         try {
             const { Email } = req.body
-            console.log(Email);
             let sql1 = `SELECT * FROM account_details WHERE Email=?`
             con.query(sql1, [Email], function (err, response) {
                 if (err) assert.deepStrictEqual(err, null);

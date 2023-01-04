@@ -11,7 +11,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #eee;
 }
 .container-fluid .card {
     height: 100vh;
@@ -68,7 +67,7 @@ a.helpPage {
 
 .main.active {
     position: relative;
-    top: 215px;
+    top: 150px;
     /* left: 31px; */
 }
 
@@ -91,8 +90,8 @@ form.d-flex {
 
 .Home_login {
     position: absolute;
-    top: 450px;
-    left: 100px;
+    top: 400px;
+    left: 75px;
 }
 
 /***** Progress Bar*******/
@@ -100,24 +99,26 @@ form.d-flex {
 .progress-bar {
     list-style: none;
     color: #fff;
-    margin-top: 30px;
+    margin-top: 10px;
     font-size: 13px;
     font-weight: 700;
     counter-reset: container 0;
 }
 .progress-bar li.active {
     color: #fff;
+    list-style: circle;
+    content: "\2611";
 }
 .progress-bar li {
     position: relative;
     margin-left: 40px;
-    margin-top: 50px;
+    margin-top: 60px;
     counter-increment: container 1;
     color: #ffffff;
 }
 .progress-bar li.active::before {
     color: #fff;
-    border: 1px solid #fff;
+    border: 2px solid #fff;
 }
 
 .progress-bar li::before {
@@ -137,13 +138,16 @@ form.d-flex {
 .progress-bar li::after {
     content: "";
     position: absolute;
-    height: 104px;
+    height: 115px;
     width: 2px;
     /* background-color: #fff; */
-    border: 1px dotted #fff;
+    border: 0.5px dotted #fff;
     z-index: 1;
     left: -28px;
     top: 11px;
+}
+.progress-bar li:last-child::after {
+    height: 0px;
 }
 
 button#v-pills-profile-tab {
@@ -234,7 +238,7 @@ button.btn.returnBtn:hover {
 }
 
 /******* next button ********/
-.btn.nxt {
+button.btn.nxt {
     border: 1px;
     /* width: 100px; */
     background: #1471e6;

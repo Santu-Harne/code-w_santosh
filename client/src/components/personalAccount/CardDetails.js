@@ -5,7 +5,8 @@ import { NavLink } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
 import '../formStyles/styleone.css'
 import { DataContext } from '../../GlobalContext';
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify"
+import FileApi from './../../Api/FileApi';
 
 const CardDetails = () => {
 
@@ -13,17 +14,52 @@ const CardDetails = () => {
     const [personalAccInfo, setPersonalAccInfo] = context.personalAccInfo
     const navigate = useNavigate()
 
-    // const [data, setData] = useState({
 
-    //     Name_On_Card: "",
-    //     Card_Number: "",
-    //     Expire_Date: ""
-    // })
     const home = () => { navigate('/') }
+    const AccountInfo = () => { navigate('/AccountInfo') }
+    const BusinessDetails = () => { navigate('/BusinessDetails') }
+    const CardDetails = () => { navigate('/CardDetails') }
+
+    //     const validate = (event, name, value) => {
+    //         switch(name) {
+    //             case "Name_On_Card" :
+    //                 if (value.length < 5) {
+    //                     toast.error("This field must not be empty")
+    //                 } else if(!new RegExp(/^[a-z A-Z \s]+$/).test(value)) 
+    //                 {
+    //                     let newObj = omit(errors, name);
+    //                     setErrors(newObj)
+    //                 }
+    //                 break;
+    //                 case "Card_Number" :
+    //                 if(value.length < 15){
+    //                     toast.error("This field must not be empty")
+    //                 }else if (!new RegExp (/^[0-9 \S]+$/).test(value)){
+    //                     toast.error("Invalid Number")
+    //                 }else{
+    //                     let newObj = omit (errors, name)
+    //                     setErrors(newObj)
+    //                 }
+    //                 break;
+    //                 case "Expire_Date":
+    //                    if(value.length < 8) {
+    //                     toast.error("This field must not be empty")
+    //                    } else if((!new RegExp("^(?=.*[0-9])(?=.*[!@#\$%\^&\*])").test(value))) {
+    //                        toast.error("Invalid Expiry Date")
+    //                    } else {
+    //                       let newObj = omit (errors, name)
+    //                       setErrors(newObj)
+    //                    }
+    //                    break;
+    //             default: let newObj = omit(errors, name);
+    //             setErrors(newObj)
+    //         }   
+    //    }
+
     const readValue = (e) => {
         e.preventDefault()
         const { name, value } = e.target
-
+        // validate(e, name, value)
         setPersonalAccInfo({ ...personalAccInfo, [name]: value })
     }
 
@@ -32,12 +68,29 @@ const CardDetails = () => {
         try {
             await axios.post('/auth/register', personalAccInfo)
                 .then(res => {
-                    // console.log("after register =", res.data)
+                    //console.log("after register =", res.data.data)
                     toast.success(res.data.msg)
+                    setPersonalAccInfo(personalAccInfo)
                     navigate('/Completed')
                 }).catch(err => toast.error(err.response.data.msg))
         } catch (error) {
-            console.log(error.message)
+            console.log(error.message);
+        }
+        try {
+            const file = personalAccInfo.Document_Object;
+            // console.log(file)
+
+            // iterate image through formData
+            let formData = new FormData();
+            formData.append('myFile', file)
+
+            await FileApi.storeFile(formData)
+                .then(res => {
+                    console.log("File Uploaded successfully");
+                    navigate('/Completed')
+                }).catch(err => toast.error(err.message))
+        } catch (error) {
+            console.log(error.message);
         }
     }
 
@@ -57,22 +110,22 @@ const CardDetails = () => {
                                         role="tab" aria-controls="v-pills-profile" aria-selected="false">Account Type</button>
                                     <span className='Accdescrip'>Select your acount type</span>
                                 </li>
-                                <li className='active'>
-                                    <button className="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#accinfo"
+                                <li>
+                                    <button onClick={() => AccountInfo()} className="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#accinfo"
                                         type="button"
                                         role="tab" aria-controls="v-pills-profile" aria-selected="false">Account Information</button>
                                     <span className='Accdescrip'>Select your acount type</span>
                                 </li>
 
                                 <li>
-                                    <button className="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill"
+                                    <button onClick={() => { BusinessDetails() }} className="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill"
                                         data-bs-target="#bussinessinfo" type="button" role="tab"
                                         aria-controls="v-pills-messages" aria-selected="false">Business Details</button>
                                     <span className='Accdescrip'>Select your acount type</span>
                                 </li>
 
-                                <li>
-                                    <button className="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill"
+                                <li className='active'>
+                                    <button onClick={() => { CardDetails() }} className="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill"
                                         data-bs-target="#cardinfo"
                                         type="button" role="tab" aria-controls="v-pills-message" aria-selected="false">Card Details</button>
                                     <span className='Accdescrip'>Select your acount type</span>
@@ -93,7 +146,7 @@ const CardDetails = () => {
                             <div className="tab-pane fade show active" id="accinfo" role="tabpanel" aria-labelledby="v-pills-home-tab">
 
                                 {/*******************Personal account form1- Card Details***********/}
-                                <form className='thirdPage'>
+                                <form onSubmit={handleSubmit} className='thirdPage'>
                                     <h2 className="fs-title text-center">{/*****Personal Account***/}<span className='fststep'>Card Details</span></h2>
 
                                     <div className="mb-3">
@@ -116,9 +169,12 @@ const CardDetails = () => {
                                     {/***<div>
                                         <button type='submit' onClick={handleSubmit} className="btn btn-outline-success">Submit</button>
                                     </div>  **/}
+                                    <div className="col-6">
+                                        <NavLink to={'/BusinessDetails'} className="nav-link float-start mt-2 btn btn-danger text-white p-2">Back</NavLink>
+                                    </div>
 
                                     <div className='retrnTohome'>
-                                        <button onClick={(e) => handleSubmit(e)} className='btn returnBtn'>Submit</button>
+                                        <button type='submit' className='btn returnBtn'>Submit</button>
                                     </div>
 
                                 </form>

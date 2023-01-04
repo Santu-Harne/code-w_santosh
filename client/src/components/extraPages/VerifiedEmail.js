@@ -22,22 +22,25 @@ const VerifiedEmail = () => {
         isVerified()
     }, [])
     return (
-        <div className='container-fluid'>
-            <div className='card'>
-                <form className='verifyForm'>
-                    <div className='vrfyEmail'>
-                        <h1>Your account is Verified</h1>
-                        <span>Didn't receive an email? <a>Try Again</a></span>
+        <div className='container mt-5'>
+            <div className="row">
+                <div className="col-md-6 offset-md-3">
+                    <div className='card'>
+                        <div className="card-body">
+                            <form className='verifyForm' style={{ background: "radial-gradient(ellipse at top right,gold,deepskyblue)" }}>
+                                <div className='vrfyEmail text-center'>
+                                    <h1 >Your Account Is Verified <i className="bi bi-check-circle text-primary"></i></h1>
+                                </div>
+                                <div>
+                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnCBdmhjfoxNof1sRi7CXpXvf_dxi1Mclk-w&usqp=CAU" alt="Verified Account" />
+                                </div>
+                                <div className='nextBtn'>
+                                    <NavLink to={'/auth/login'} className="btn btn-primary nxt">Login</NavLink>
+                                </div>
+                            </form>
+                        </div>
                     </div>
-
-                    <div className='skpNow'>
-                        <button className='btn btn-primary'> Skip for now</button>
-                    </div>
-
-                    <div className='nextBtn'>
-                        <NavLink to={'/auth/login'} className="btn btn-primary nxt">Login</NavLink>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
     )

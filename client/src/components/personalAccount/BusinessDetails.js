@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
 import '../formStyles/styleone.css'
 import { DataContext } from '../../GlobalContext';
-
+import { toast } from 'react-toastify'
 
 const BusinessDetails = () => {
 
@@ -14,14 +14,23 @@ const BusinessDetails = () => {
     const navigate = useNavigate()
 
 
-
+    const setFile = (e) => {
+        e.preventDefault()
+        const file = e.target.files[0];
+        if (file) {
+            // console.log(`file name = `, file)
+            setPersonalAccInfo({ ...personalAccInfo, Document_Location: file.name, Document_Object: file })
+        }
+    }
     const readValue = (e) => {
         e.preventDefault()
         const { name, value } = e.target
-
         setPersonalAccInfo({ ...personalAccInfo, [name]: value })
     }
     const home = () => { navigate('/') }
+    const AccountInfo = () => { navigate('/AccountInfo') }
+    const BusinessDetails = () => { navigate('/BusinessDetails') }
+    const CardDetails = () => { navigate('/CardDetails') }
 
     return (
 
@@ -40,22 +49,22 @@ const BusinessDetails = () => {
                                         role="tab" aria-controls="v-pills-profile" aria-selected="false">Account Type</button>
                                     <span className='Accdescrip'>Select your acount type</span>
                                 </li>
-                                <li className='active'>
-                                    <button className="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#accinfo"
+                                <li>
+                                    <button onClick={() => AccountInfo()} className="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#accinfo"
                                         type="button"
                                         role="tab" aria-controls="v-pills-profile" aria-selected="false">Account Information</button>
                                     <span className='Accdescrip'>Select your acount type</span>
                                 </li>
 
-                                <li>
-                                    <button className="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill"
+                                <li className='active'>
+                                    <button onClick={() => { BusinessDetails() }} className="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill"
                                         data-bs-target="#bussinessinfo" type="button" role="tab"
                                         aria-controls="v-pills-messages" aria-selected="false">Business Details</button>
                                     <span className='Accdescrip'>Select your acount type</span>
                                 </li>
 
                                 <li>
-                                    <button className="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#cardinfo"
+                                    <button onClick={() => { CardDetails() }} className="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#cardinfo"
                                         type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">Card Details</button>
                                     <span className='Accdescrip'>Select your acount type</span>
                                 </li>
@@ -74,7 +83,7 @@ const BusinessDetails = () => {
                             <div className="tab-pane fade show active" id="accinfo" role="tabpanel" aria-labelledby="v-pills-home-tab">
                                 {/*******************Personal account form2 - Business Details***********/}
 
-                                <form className='secondPage mt-4' >
+                                <form className='secondPage mt-2' >
                                     <h2 className="fs-title text-center">{/*****Personal Account***/}<span className='fststep'>Business Details</span></h2>
                                     <div className="mb-2">
                                         <label htmlFor="Document_Type" className="form-label">Type of Document:</label>
@@ -93,9 +102,9 @@ const BusinessDetails = () => {
                                     </div>
 
                                     <div className='mb-2'>
-                                        <label htmlFor="Document_Location" className="form-label">Document Location</label>
-                                        <input type="text" name='Document_Location'
-                                            placeholder='Enter Document Location' value={personalAccInfo.Document_Location} onChange={readValue} className="form-control" />
+                                        <label htmlFor="Document_Location" className="form-label">Document_Upload</label>
+                                        <input type="file"
+                                            placeholder='Enter Document Location' onChange={setFile} className="form-control" />
                                     </div>
 
                                     <div className="mb-2">
@@ -110,22 +119,16 @@ const BusinessDetails = () => {
                                             placeholder='Mobile number' value={personalAccInfo.Mobile} onChange={readValue} className="form-control" />
                                     </div>
 
-                                    {/* <div className='nextBtn float-end'>
-                                        <NavLink to={'/CardDetails'} className="nav-link">
-                                            <button className='btn nxt'>Next</button>
-                                        </NavLink>
-                                    </div> */}
-
                                     <div className="row">
-                                        <div className="col-md-8">
-                                            <NavLink to={'/CardDetails'} className="nav-link bg-success float-end me-3 py-2 px-3 mb-2 rounded">
-                                                Next
-                                            </NavLink>
+                                        <div className="col-6 mt-3">
+                                            <NavLink to={'/AccountInfo'} className="nav-link float-start btn btn-danger text-white p-2">Back</NavLink>
+                                        </div>
+                                        <div className="col-6 mt-3">
+                                            <NavLink to={'/CardDetails'} className="nav-link float-end btn btn-primary text-white p-2" >Next</NavLink>
                                         </div>
                                     </div>
+
                                 </form>
-
-
 
                             </div>
                         </div>

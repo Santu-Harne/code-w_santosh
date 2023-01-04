@@ -1,12 +1,10 @@
+/* forget.css*/
 
-  /* forget.css*/
-
-  .container-fluid {
+.container-fluid {
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    
 }
 .container-fluid .card {
     height: 100vh;
@@ -15,12 +13,12 @@
     display: contents;
 }
 
-  form.verifyForm {
+form.verifyForm {
     width: 601px;
     height: 90%;
     display: block;
-    box-shadow: 10px 10px 10px 15px darkblue;
-    padding: 130px ;
+    padding: 130px;
+    position: relative;
 }
 
 .card {
@@ -36,9 +34,9 @@
 
 .nextBtn {
     position: absolute;
-    right: 470px;
-    bottom: 84px;
+    left: 400px;
+    /* bottom: 84px; */
 }
-.tryAgn{
+.tryAgn {
     color: rgb(107, 108, 110);
 }

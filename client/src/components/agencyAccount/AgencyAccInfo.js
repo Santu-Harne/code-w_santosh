@@ -4,6 +4,7 @@ import { useState, useEffect, useContext } from 'react'
 import { NavLink } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
 import { DataContext } from '../../GlobalContext';
+import {toast} from 'react-toastify'
 
 const AgencyAccInfo = () => {
 
@@ -18,6 +19,12 @@ const AgencyAccInfo = () => {
         setAgencyAccInfo({ ...agencyAccInfo, [name]: value })
     }
 
+    const home = () => { navigate('/') }
+    const AgencyAccInfo = () => { navigate('/AgencyAccInfo') }
+    const AgencyBusiness = () => { navigate('/AgencyBusiness') }
+    const AgencyCard = () => { navigate('/AgencyCard') }
+
+
 
 
     return (
@@ -30,34 +37,34 @@ const AgencyAccInfo = () => {
                         <div className='nav flex-column nav-pills' id='v-pills-tab flex-column'
                             role="tablist" aria-orientation="vertical">
                             <ul className='progress-bar'>
-                                <li className=''>
-                                    <button className="nav-link" id="v-pills-profile1-tab" data-bs-toggle="pill" data-bs-target="#acctype"
+                                <li>
+                                    <button onClick={() => home()} className="nav-link" id="v-pills-profile1-tab" data-bs-toggle="pill" data-bs-target="#acctype"
                                         type="button"
                                         role="tab" aria-controls="v-pills-profile" aria-selected="false">Account Type</button>
                                     <span className='Accdescrip'>Select your acount type</span>
                                 </li>
                                 <li className='active'>
-                                    <button className="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#accinfo"
+                                    <button onClick={() => AgencyAccInfo()} className="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#accinfo"
                                         type="button"
                                         role="tab" aria-controls="v-pills-profile" aria-selected="false">Account Information</button>
                                     <span className='Accdescrip'>Select your acount type</span>
                                 </li>
 
                                 <li>
-                                    <button className="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill"
+                                    <button onClick={() => { AgencyBusiness() }} className="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill"
                                         data-bs-target="#bussinessinfo" type="button" role="tab"
                                         aria-controls="v-pills-messages" aria-selected="false">Business Details</button>
                                     <span className='Accdescrip'>Select your acount type</span>
                                 </li>
 
                                 <li>
-                                    <button className="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#cardinfo"
+                                    <button onClick={() => { AgencyCard() }} className="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#cardinfo"
                                         type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">Card Details</button>
                                     <span className='Accdescrip'>Select your acount type</span>
                                 </li>
                                 <li>
                                     <button className="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#cardinfo"
-                                        type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">Card Details</button>
+                                        type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">Completed</button>
                                     <span className='Accdescrip'>Select your acount type</span>
                                 </li>
                             </ul>
@@ -116,23 +123,13 @@ const AgencyAccInfo = () => {
                                     </div>
 
                                     <div className="row">
-                                        <div className="col-md-8">
-                                            <NavLink to={'/AgencyBusiness'} className="nav-link bg-success float-end me-3 py-2 px-3 mb-2 rounded">
-                                                Next
-                                            </NavLink>
+                                        <div className="col-md-12">
+                                            <NavLink to={'/AgencyBusiness'} className="nav-link float-end mb-5 btn btn-primary p-2 text-white">Next</NavLink>
                                         </div>
                                     </div>
                                 </form>
+
                             </div>
-
-                            {/*******************Return to Home*******
-
-                    <div className='retrnTohome'>
-                        <NavLink to={'/HomePage'} className="nav-link">
-                            <button className='btn returnBtn'>Return to Home</button>
-                        </NavLink>
-                    </div> ****/}
-
                         </div>
                     </div>
 

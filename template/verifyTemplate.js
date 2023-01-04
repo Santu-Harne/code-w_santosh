@@ -1,4 +1,4 @@
-const regTemplate = (name, email, password, token) => {
+const verifyTemplate = (name, token) => {
     return `<div>
         <h1>Hi, ${name} Welcome to CODE-W</h1>
         <article style="margin:auto; object-fit:cover;">
@@ -9,4 +9,4 @@ const regTemplate = (name, email, password, token) => {
     </div>`
 }
 
-module.exports = regTemplate
+module.exports = verifyTemplate

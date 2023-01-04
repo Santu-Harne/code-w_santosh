@@ -1,93 +1,42 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { NavLink } from 'react-router-dom'
+import axios from 'axios'
+import { NavLink, useParams } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
 import { DataContext } from '../../GlobalContext';
-import { useGoogleLogin } from '@react-oauth/google';
-import axios from "axios";
+import { toast } from 'react-toastify'
 
-const AccountInfo = () => {
-    const [details, setDetails] = useState(null)
+
+
+const AccountInfoGoogleGoogle = () => {
     const context = useContext(DataContext)
-    const [personalAccInfo, setPersonalAccInfo] = context.personalAccInfo
+    const [googleAccInfo, setGoogleAccInfo] = context.googleAccInfo
     const navigate = useNavigate()
+    const params = useParams()
 
 
+
+    const getUser = async () => {
+        try {
+            setGoogleAccInfo({ ...googleAccInfo, Name: params.name, Email: params.email, isVerified: true });
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
 
     const home = () => { navigate('/') }
-    const AccountInfo = () => { navigate('/AccountInfo') }
-    const BusinessDetails = () => { navigate('/BusinessDetails') }
-    const CardDetails = () => { navigate('/CardDetails') }
-
-    // const validate = (e , name , value) => {
-    //     e.preventDefault()
-    //     switch(name) {
-    //         case "Name" : if(value.length === 0){
-
-    //                 toast.error("name field should not be empty");
-
-    //             }else if(value.length < 4) {
-
-    //                 toast.error("Name Alteast have 4 characters");
-    //             }
-    //             break;
-    //         case "Email" :
-    //             if(value.length === 0){
-
-    //                 toast.error("Email field must be filled")
-    //             }else if(!new RegExp (/^[-a-z A-Z 0-9 \S]+@[a-z \s]+\.[c][o][m]+$/).test(value)){
-
-    //                 toast.error("Invalid email format");
-    //             }
-    //             break;
-    //             case "Password" :
-    //                 if(value.length < 8){
-
-    //                     toast.error("Password must have 8 character long");
-    //                 }else if(!new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})").test(value)) {
-
-    //                     toast.error("Minimum eight characters, at least one letter, one number and one special character:");
-    //                 }
-    //                 break;
-    //                 case  "radio" :
-    //                     if(value.radio === 0) {
-
-    //                         toast.error("Select atleast one radio button");
-    //                     } else{
-    //                         toast.error("Success");
-
-    //                     }
-    //         default: 
-
-
-    //     }
-    // }
-
-    const googleRegister = useGoogleLogin({
-        onSuccess: async response => {
-            try {
-                const res = await axios.get("https://www.googleapis.com/oauth2/v3/userinfo", {
-                    headers: {
-                        "Authorization": `Bearer ${response.access_token}`
-                    }
-                })
-                setDetails(res.data)
-                console.log(res.data.email)
-                window.location.href = `/AccountInfoGoogle/${res.data.name}/${res.data.email}`
-                // navigate('/register')
-
-            } catch (error) {
-                console.log(error)
-            }
-
-        }
-    });
+    const AccountInfoGoogle = () => { navigate('/AccountInfoGoogle') }
+    const BusinessDetailsGoogle = () => { navigate('/BusinessDetailsGoogle') }
+    const CardDetailsGoogle = () => { navigate('/CardDetailsGoogle') }
 
     const readValue = (e) => {
         e.preventDefault()
         const { name, value } = e.target
-        // validate(e,name,value)
-        setPersonalAccInfo({ ...personalAccInfo, [name]: value })
+
+        setGoogleAccInfo({ ...googleAccInfo, [name]: value })
     }
+    useEffect(() => {
+        getUser()
+    }, [])
 
 
     return (
@@ -108,21 +57,21 @@ const AccountInfo = () => {
                                 </li>
 
                                 <li className='active'>
-                                    <button onClick={() => AccountInfo()} className="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#accinfo"
+                                    <button onClick={() => AccountInfoGoogle()} className="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#accinfo"
                                         type="button"
                                         role="tab" aria-controls="v-pills-profile" aria-selected="false">Account Information</button>
                                     <span className='Accdescrip'>Select your acount type</span>
                                 </li>
 
                                 <li>
-                                    <button onClick={() => { BusinessDetails() }} className="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill"
+                                    <button onClick={() => { BusinessDetailsGoogle() }} className="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill"
                                         data-bs-target="#bussinessinfo" type="button" role="tab"
                                         aria-controls="v-pills-messages" aria-selected="false">Business Details</button>
                                     <span className='Accdescrip'>Select your acount type</span>
                                 </li>
 
                                 <li>
-                                    <button onClick={() => { CardDetails() }} className="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#cardinfo"
+                                    <button onClick={() => { CardDetailsGoogle() }} className="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#cardinfo"
                                         type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">Card Details</button>
                                     <span className='Accdescrip'>Select your acount type</span>
                                 </li>
@@ -141,24 +90,24 @@ const AccountInfo = () => {
                             <div className="tab-pane fade show active" id="accinfo" role="tabpanel" aria-labelledby="v-pills-home-tab">
                                 {/******************************Personal account form1- Account Info***********/}
 
-                                <form className='firstpage mt-5' >
+                                <form className='firstpage' >
                                     <h2 className="fs-title text-center">{/*Personal Account */}<span className='fststep'>Account Information</span></h2>
                                     <div className="mb-3">
                                         <label htmlFor="Name" className="form-label">Name:</label>
                                         <input type="text" id="Name"
-                                            placeholder='Enter your name' name='Name' value={personalAccInfo.Name} onChange={readValue} className="form-control" />
+                                            placeholder='Enter your name' name='Name' value={googleAccInfo.Name} onChange={readValue} className="form-control" />
                                     </div>
 
                                     <div className="mb-3">
                                         <label htmlFor="Email" className="form-label">Email:</label>
                                         <input type="email" id="Email" name='Email'
-                                            placeholder='Enter your Email ID' value={personalAccInfo.Email} onChange={readValue} className="form-control" />
+                                            placeholder='Enter your Email ID' value={googleAccInfo.Email} onChange={readValue} className="form-control" readOnly />
                                     </div>
 
                                     <div className="mb-3">
                                         <label htmlFor="Password" className="form-label">Password:</label>
                                         <input type="password" id="Password" name='Password'
-                                            placeholder='Create a password for your account' value={personalAccInfo.Password} onChange={readValue} className="form-control" />
+                                            placeholder='Create a password for your account' value={googleAccInfo.Password} onChange={readValue} className="form-control" />
                                     </div>
                                     {/* <div className="mb-3">
     <label htmlFor="confirmPassword" className="form-label">Confirm Password:</label>
@@ -171,43 +120,33 @@ const AccountInfo = () => {
                                             <div className="form-check">
                                                 <label htmlFor="Account_Plan" className="form-check-label" >
                                                     <input type="radio" name='Account_Plan' className="form-check-input"
-                                                        value="Company Account" checked={personalAccInfo.Account_Plan === "Account_Plan"}
+                                                        value="Company Account" checked={googleAccInfo.Account_Plan === "Account_Plan"}
                                                         onChange={readValue} />Company Account</label><br />
                                                 <label htmlFor="Account_Plan" className="form-check-label" >
                                                     <input type="radio" name='Account_Plan' value="Developer Account"
-                                                        checked={personalAccInfo.Account_Plan === "Account_Plan"} onChange={readValue}
+                                                        checked={googleAccInfo.Account_Plan === "Account_Plan"} onChange={readValue}
                                                         className="form-check-input" />Developer Account</label><br />
 
                                                 <label htmlFor="Account_Plan" className="form-check-label" >
                                                     <input type="radio" name='Account_Plan' value="Testing Account"
-                                                        checked={personalAccInfo.Account_Plan === "Account_Plan"} onChange={readValue}
+                                                        checked={googleAccInfo.Account_Plan === "Account_Plan"} onChange={readValue}
                                                         className="form-check-input" />Testing Account</label>
                                             </div>
                                         </div>
                                     </div>
                                     <div className="row">
                                         <div className="col-md-12 mt-3">
-                                            <NavLink to={'/BusinessDetails'} className="btn btn-primary nav-link float-end mb-5 text-white p-2">Next</NavLink>
+                                            <NavLink to={'/BusinessDetailsGoogle'} className="btn btn-primary nav-link float-end mb-5 text-white p-2">Next</NavLink>
                                         </div>
                                     </div>
-
-
                                 </form>
-                                <div className="card-body d-flex ">
-                                    <h4 className='mt-2 ms-4'>Register with :  </h4>
-                                    <button className="btn btn-outline-info ms-3  " onClick={googleRegister}><i className="bi bi-google me-1 fs-5 "></i> Google</button>
-                                    <button className="btn btn-outline-primary  ms-3 " onClick={() => { navigate("/linkedin") }}><i className="bi bi-linkedin me-1 fs-5"></i> LinkedIn</button>
-                                    <button className="btn btn-outline-secondary  ms-3" onClick={() => { navigate("/Code S") }}><i className="bi bi-stripe me-1 fs-5 "></i>Code S</button>
-                                </div>
 
                                 {/* <div className="row">
                                     <div className="col-md-9">
-                                        <NavLink to={'/BusinessDetails'} className="nav-link float-end mb-5"><button className='btn nxt'>Next</button></NavLink>
+                                        <NavLink to={'/BusinessDetailsGoogle'} className="nav-link float-end mb-5"><button className='btn nxt'>Next</button></NavLink>
                                     </div>
                                 </div> */}
                             </div>
-
-
 
                         </div>
                     </div>
@@ -219,4 +158,4 @@ const AccountInfo = () => {
     )
 }
 
-export default AccountInfo
+export default AccountInfoGoogleGoogle
