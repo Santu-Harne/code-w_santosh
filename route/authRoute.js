@@ -3,7 +3,7 @@ const authController = require('../controller/authController')
 const auth = require('../middleware/auth')
 const fileUpload = require('../middleware/fileUpload')
 
-route.post('/register', fileUpload, authController.register)
+route.post('/register', authController.register)
 route.post('/file/upload', fileUpload, authController.upload)
 route.get('/allusers', authController.allUsers)
 route.get('/getUser/:email', authController.getUser)
@@ -15,5 +15,7 @@ route.get('/refreshToken', authController.refreshToken)
 route.get('/register/verify/:registerToken', authController.isVerified)
 route.post('/forgotPassword', authController.forgotPassword)
 route.put('/resetPassword/:registerToken', authController.resetPassword)
+
+route.post('/login/code_w', authController.login_code_W)
 
 module.exports = route

@@ -5,10 +5,8 @@ const cookieSession = require("cookie-session")
 const passport = require('passport');
 const cors = require('cors')
 const cookieParser = require("cookie-parser")
-const assert = require('assert')
 const { StatusCodes } = require('http-status-codes')
 const path = require('path')
-const passportSetup = require('./middleware/passportRegister')
 
 const connectDB = require('./db/db')
 const con = require('./db/connectionString')
@@ -26,42 +24,32 @@ app.use(express.json())
 // static
 app.use(express.static('./Uploads'))
 
-app.use(cookieSession({
-    name: 'session',
-    keys: ['code-w'],
-    maxAge: 1 * 24 * 60 * 60 * 1000,
-    path: '/socialAuth/login/success'
-}))
-
-app.use(passport.initialize());
-app.use(passport.session());
-
-
-
-// google login code
-app.get('/success', (req, res) => res.send(userProfile));
-app.get('/error', (req, res) => res.send("error logging in"));
-
-
-
 // middleware
-app.use(cors({
-    origin: "http://localhost:3000",
-    methods: "GET,POST,PUT,DELETE",
-    credentials: true
-}))
-// app.use(cors())
+app.use(cors(
+    {
+        credentials: true,
+        origin: "*"
+    }
+))
+
 app.use(cookieParser(process.env.TOKEN_SECRET)) // token secret for signed cookies
+
+//   serialized and deserialized.
+passport.serializeUser(function (user, done) {
+    done(null, user);
+});
+
+passport.deserializeUser(function (obj, done) {
+    done(null, obj);
+});
 
 // route modules
 const authRoute = require('./route/authRoute')
 const mailRoute = require('./route/mailRoute')
-const socialRegisterRoute = require('./route/socialRegisterRoute')
 
 // primary route
 app.use('/auth', authRoute)
 app.use('/mail', mailRoute)
-app.use('/socialAuth', socialRegisterRoute)
 
 // default route
 app.all('*', (req, res) => {

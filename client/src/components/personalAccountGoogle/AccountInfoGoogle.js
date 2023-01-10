@@ -7,9 +7,9 @@ import { toast } from 'react-toastify'
 
 
 
-const AccountInfoGoogleGoogle = () => {
+const AccountInfoGoogle = () => {
     const context = useContext(DataContext)
-    const [googleAccInfo, setGoogleAccInfo] = context.googleAccInfo
+    const [personalAccInfo, setPersonalAccInfo] = context.personalAccInfo
     const navigate = useNavigate()
     const params = useParams()
 
@@ -17,7 +17,7 @@ const AccountInfoGoogleGoogle = () => {
 
     const getUser = async () => {
         try {
-            setGoogleAccInfo({ ...googleAccInfo, Name: params.name, Email: params.email, isVerified: true });
+            setPersonalAccInfo({ ...personalAccInfo, Name: params.name, Email: params.email, isVerified: true });
         } catch (error) {
             console.log(error.message);
         }
@@ -32,7 +32,7 @@ const AccountInfoGoogleGoogle = () => {
         e.preventDefault()
         const { name, value } = e.target
 
-        setGoogleAccInfo({ ...googleAccInfo, [name]: value })
+        setPersonalAccInfo({ ...personalAccInfo, [name]: value })
     }
     useEffect(() => {
         getUser()
@@ -95,19 +95,19 @@ const AccountInfoGoogleGoogle = () => {
                                     <div className="mb-3">
                                         <label htmlFor="Name" className="form-label">Name:</label>
                                         <input type="text" id="Name"
-                                            placeholder='Enter your name' name='Name' value={googleAccInfo.Name} onChange={readValue} className="form-control" />
+                                            placeholder='Enter your name' name='Name' value={personalAccInfo.Name} onChange={readValue} className="form-control" />
                                     </div>
 
                                     <div className="mb-3">
                                         <label htmlFor="Email" className="form-label">Email:</label>
                                         <input type="email" id="Email" name='Email'
-                                            placeholder='Enter your Email ID' value={googleAccInfo.Email} onChange={readValue} className="form-control" readOnly />
+                                            placeholder='Enter your Email ID' value={personalAccInfo.Email} onChange={readValue} className="form-control" readOnly />
                                     </div>
 
                                     <div className="mb-3">
                                         <label htmlFor="Password" className="form-label">Password:</label>
                                         <input type="password" id="Password" name='Password'
-                                            placeholder='Create a password for your account' value={googleAccInfo.Password} onChange={readValue} className="form-control" />
+                                            placeholder='Create a password for your account' value={personalAccInfo.Password} onChange={readValue} className="form-control" />
                                     </div>
                                     {/* <div className="mb-3">
     <label htmlFor="confirmPassword" className="form-label">Confirm Password:</label>
@@ -120,16 +120,16 @@ const AccountInfoGoogleGoogle = () => {
                                             <div className="form-check">
                                                 <label htmlFor="Account_Plan" className="form-check-label" >
                                                     <input type="radio" name='Account_Plan' className="form-check-input"
-                                                        value="Company Account" checked={googleAccInfo.Account_Plan === "Account_Plan"}
+                                                        value="Company Account" checked={personalAccInfo.Account_Plan === "Account_Plan"}
                                                         onChange={readValue} />Company Account</label><br />
                                                 <label htmlFor="Account_Plan" className="form-check-label" >
                                                     <input type="radio" name='Account_Plan' value="Developer Account"
-                                                        checked={googleAccInfo.Account_Plan === "Account_Plan"} onChange={readValue}
+                                                        checked={personalAccInfo.Account_Plan === "Account_Plan"} onChange={readValue}
                                                         className="form-check-input" />Developer Account</label><br />
 
                                                 <label htmlFor="Account_Plan" className="form-check-label" >
                                                     <input type="radio" name='Account_Plan' value="Testing Account"
-                                                        checked={googleAccInfo.Account_Plan === "Account_Plan"} onChange={readValue}
+                                                        checked={personalAccInfo.Account_Plan === "Account_Plan"} onChange={readValue}
                                                         className="form-check-input" />Testing Account</label>
                                             </div>
                                         </div>
@@ -140,12 +140,6 @@ const AccountInfoGoogleGoogle = () => {
                                         </div>
                                     </div>
                                 </form>
-
-                                {/* <div className="row">
-                                    <div className="col-md-9">
-                                        <NavLink to={'/BusinessDetailsGoogle'} className="nav-link float-end mb-5"><button className='btn nxt'>Next</button></NavLink>
-                                    </div>
-                                </div> */}
                             </div>
 
                         </div>
@@ -158,4 +152,4 @@ const AccountInfoGoogleGoogle = () => {
     )
 }
 
-export default AccountInfoGoogleGoogle
+export default AccountInfoGoogle

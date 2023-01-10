@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useContext } from 'react'
 import { NavLink } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
 import { DataContext } from '../../GlobalContext';
 import { useGoogleLogin } from '@react-oauth/google';
 import axios from "axios";
+import { useLinkedIn } from 'react-linkedin-login-oauth2';
 
 const AccountInfo = () => {
-    const [details, setDetails] = useState(null)
     const context = useContext(DataContext)
     const [personalAccInfo, setPersonalAccInfo] = context.personalAccInfo
     const navigate = useNavigate()
@@ -70,8 +70,7 @@ const AccountInfo = () => {
                         "Authorization": `Bearer ${response.access_token}`
                     }
                 })
-                setDetails(res.data)
-                console.log(res.data.email)
+                // console.log(res.data.email)
                 window.location.href = `/AccountInfoGoogle/${res.data.name}/${res.data.email}`
                 // navigate('/register')
 
@@ -82,6 +81,21 @@ const AccountInfo = () => {
         }
     });
 
+    const { linkedInLogin } = useLinkedIn({
+        clientId: '86lgzg6lwebek8',
+        redirectUri: `http://localhost:3000/socialLogin/linkedin`, // for Next.js, you can use `${typeof window === 'object' && window.location.origin}/linkedin`,
+        onSuccess: (code) => {
+            // console.log(code);
+            navigate(`/linkedin/${code}`)
+        },
+        onError: (error) => {
+            console.log(error);
+        },
+        scope: "r_emailaddress r_liteprofile",
+    });
+    // const linkedInLogin = () => {
+    //     alert("register with linkedin")
+    // }
     const readValue = (e) => {
         e.preventDefault()
         const { name, value } = e.target
@@ -160,10 +174,7 @@ const AccountInfo = () => {
                                         <input type="password" id="Password" name='Password'
                                             placeholder='Create a password for your account' value={personalAccInfo.Password} onChange={readValue} className="form-control" />
                                     </div>
-                                    {/* <div className="mb-3">
-    <label htmlFor="confirmPassword" className="form-label">Confirm Password:</label>
-    <input type="password" id="confirmPassword" name='confirmPassword' value={data.confirmPassword}  onChange={readValue} className="form-control"/>
-</div> */}
+
                                     <div className='mb-3 d-flex justify-content-between'>
                                         {/* ************************** Radio Buttons*********** */}
                                         <div className='btnpage1'>
@@ -196,15 +207,10 @@ const AccountInfo = () => {
                                 <div className="card-body d-flex ">
                                     <h4 className='mt-2 ms-4'>Register with :  </h4>
                                     <button className="btn btn-outline-info ms-3  " onClick={googleRegister}><i className="bi bi-google me-1 fs-5 "></i> Google</button>
-                                    <button className="btn btn-outline-primary  ms-3 " onClick={() => { navigate("/linkedin") }}><i className="bi bi-linkedin me-1 fs-5"></i> LinkedIn</button>
+                                    <button className="btn btn-outline-primary  ms-3 " onClick={linkedInLogin}><i className="bi bi-linkedin me-1 fs-5"></i> LinkedIn</button>
                                     <button className="btn btn-outline-secondary  ms-3" onClick={() => { navigate("/Code S") }}><i className="bi bi-stripe me-1 fs-5 "></i>Code S</button>
                                 </div>
 
-                                {/* <div className="row">
-                                    <div className="col-md-9">
-                                        <NavLink to={'/BusinessDetails'} className="nav-link float-end mb-5"><button className='btn nxt'>Next</button></NavLink>
-                                    </div>
-                                </div> */}
                             </div>
 
 

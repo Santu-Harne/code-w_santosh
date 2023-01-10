@@ -141,7 +141,7 @@ const CorporateBusiness = () => {
                                     </div>
 
                                     <div className="mb-1">
-                                        <label htmlFor="Document_Type" className="form-label">Business Id Proof:</label>
+                                        <label htmlFor="Document_Type" className="form-label">Business Id Type</label>
                                         <input type="text" name='Document_Type' className='form-control' value={corpAccInfo.Document_Type} onChange={readValue} />
                                     </div>
 

@@ -10,7 +10,7 @@ import { toast } from 'react-toastify'
 const BusinessDetailsGoogle = () => {
 
     const context = useContext(DataContext)
-    const [googleAccInfo, setGoogleAccInfo] = context.googleAccInfo
+    const [personalAccInfo, setPersonalAccInfo] = context.personalAccInfo
     const navigate = useNavigate()
 
     const setFile = (e) => {
@@ -18,7 +18,7 @@ const BusinessDetailsGoogle = () => {
         const file = e.target.files[0];
         if (file) {
             // console.log(`file name = `, file)
-            setGoogleAccInfo({ ...googleAccInfo, Document_Location: file.name, Document_Object: file })
+            setPersonalAccInfo({ ...personalAccInfo, Document_Location: file.name, Document_Object: file })
         }
     }
 
@@ -27,7 +27,7 @@ const BusinessDetailsGoogle = () => {
         e.preventDefault()
         const { name, value } = e.target
 
-        setGoogleAccInfo({ ...googleAccInfo, [name]: value })
+        setPersonalAccInfo({ ...personalAccInfo, [name]: value })
     }
     const home = () => { navigate('/') }
     const AccountInfoGoogle = () => { navigate('/AccountInfoGoogle') }
@@ -100,7 +100,7 @@ const BusinessDetailsGoogle = () => {
                                     <div className='mb-2'>
                                         <label htmlFor="Document_Number" className="form-label">Document Number</label>
                                         <input type="number" name='Document_Number'
-                                            placeholder='Enter document number' value={googleAccInfo.Document_Number} onChange={readValue} className="form-control" />
+                                            placeholder='Enter document number' value={personalAccInfo.Document_Number} onChange={readValue} className="form-control" />
                                     </div>
 
                                     <div className='mb-2'>
@@ -112,13 +112,13 @@ const BusinessDetailsGoogle = () => {
                                     <div className="mb-2">
                                         <label htmlFor="Address" className="form-label">Address:</label>
                                         <textarea name="Address" id="Address"
-                                            placeholder='Address' cols="20" rows="5" value={googleAccInfo.Address} onChange={readValue} className="form-control"></textarea>
+                                            placeholder='Address' cols="20" rows="5" value={personalAccInfo.Address} onChange={readValue} className="form-control"></textarea>
                                     </div>
 
                                     <div className="mb-2">
                                         <label htmlFor="Mobile" className="form-label">Mobile:</label>
                                         <input type="number" id="Mobile" name='Mobile'
-                                            placeholder='Mobile number' value={googleAccInfo.Mobile} onChange={readValue} className="form-control" />
+                                            placeholder='Mobile number' value={personalAccInfo.Mobile} onChange={readValue} className="form-control" />
                                     </div>
 
                                     <div className="row">

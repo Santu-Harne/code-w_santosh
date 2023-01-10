@@ -6,11 +6,12 @@ import { useNavigate } from 'react-router-dom';
 import '../formStyles/styleone.css'
 import { DataContext } from '../../GlobalContext';
 import { toast } from "react-toastify"
+import FileApi from './../../Api/FileApi';
 
 const CardDetailsGoogle = () => {
 
     const context = useContext(DataContext)
-    const [googleAccInfo, setGoogleAccInfo] = context.googleAccInfo
+    const [personalAccInfo, setPersonalAccInfo] = context.personalAccInfo
     const navigate = useNavigate()
 
     const home = () => { navigate('/') }
@@ -22,32 +23,27 @@ const CardDetailsGoogle = () => {
         e.preventDefault()
         const { name, value } = e.target
 
-        setGoogleAccInfo({ ...googleAccInfo, [name]: value })
+        setPersonalAccInfo({ ...personalAccInfo, [name]: value })
     }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.post('/auth/register', googleAccInfo)
+            await axios.post('/auth/register', personalAccInfo)
                 .then(res => {
                     //console.log("after register =", res.data.data)
                     toast.success(res.data.msg)
                     navigate('/Completed')
                 }).catch(err => toast.error(err.response.data.msg))
-        } catch (error) {
-            console.log(error.message);
-        }
-        try {
-            const file = googleAccInfo.Document_Object;
-            // console.log(file)
 
+            const file = personalAccInfo.Document_Object;
             // iterate image through formData
             let formData = new FormData();
             formData.append('myFile', file)
 
             await FileApi.storeFile(formData)
                 .then(res => {
-                    console.log("File Uploaded successfully");
+                    // console.log("File Uploaded successfully");
                     navigate('/Completed')
                 }).catch(err => toast.error(err.message))
         } catch (error) {
@@ -113,18 +109,18 @@ const CardDetailsGoogle = () => {
                                     <div className="mb-3">
                                         <label htmlFor="Name_On_Card">Card Name:</label><br />
                                         <input type="text" name='Name_On_Card'
-                                            placeholder='Name Surname' value={googleAccInfo.Name_On_Card} onChange={readValue} className="form-control" />
+                                            placeholder='Name Surname' value={personalAccInfo.Name_On_Card} onChange={readValue} className="form-control" />
                                     </div>
                                     <div className="mb-3">
                                         <label htmlFor="Card_Number">Card Number:</label><br />
                                         <input type="number" name='Card_Number'
                                             placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
-                                            value={googleAccInfo.Card_Number} onChange={readValue} className="form-control" />
+                                            value={personalAccInfo.Card_Number} onChange={readValue} className="form-control" />
                                     </div>
                                     <div className="mb-3">
                                         <label htmlFor="Expire_Date">Expiry Date:</label><br />
                                         <input type="text" name='Expire_Date'
-                                            placeholder='mm/yy' value={googleAccInfo.Expire_Date} onChange={readValue} className="form-control" />
+                                            placeholder='mm/yy' value={personalAccInfo.Expire_Date} onChange={readValue} className="form-control" />
                                     </div>
 
                                     {/***<div>

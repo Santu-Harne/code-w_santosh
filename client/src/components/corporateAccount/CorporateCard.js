@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import '../formStyles/styleone.css'
 import { DataContext } from '../../GlobalContext';
 import { toast } from "react-toastify"
+import FileApi from './../../Api/FileApi';
 
 const CorporateCard = () => {
 
@@ -36,20 +37,15 @@ const CorporateCard = () => {
                     toast.success(res.data.msg)
                     navigate('/Completed')
                 }).catch(err => toast.error(err.response.data.msg))
-        } catch (error) {
-            console.log(error.message);
-        }
-        try {
-            const file = corpAccInfo.Document_Object;
-            // console.log(file)
 
+            const file = corpAccInfo.Document_Object;
             // iterate image through formData
             let formData = new FormData();
             formData.append('myFile', file)
 
             await FileApi.storeFile(formData)
                 .then(res => {
-                    console.log("File Uploaded successfully");
+                    // console.log("File Uploaded successfully");
                     navigate('/Completed')
                 }).catch(err => toast.error(err.message))
         } catch (error) {
@@ -127,7 +123,7 @@ const CorporateCard = () => {
                                     </div>
                                     <div className="mb-3">
                                         <label htmlFor="Expire_Date">Expiry Date:</label><br />
-                                        <input type="number" name='Expire_Date'
+                                        <input type="text" name='Expire_Date'
                                             placeholder='mm/yy' value={corpAccInfo.Expire_Date} onChange={readValue} className="form-control" />
                                     </div>
 

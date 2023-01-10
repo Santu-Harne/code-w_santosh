@@ -1,20 +1,29 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-
-
-
+import { LinkedInCallback } from 'react-linkedin-login-oauth2';
 import HomePage from './components/homePage/HomePage';
-import AccountInfo from './components/personalAccount/AccountInfo';
-import CorporateAccInfo from './components/corporateAccount/CorporateAccInfo';
-import AgencyAccInfo from './components/agencyAccount/AgencyAccInfo'
 
+import AccountInfo from './components/personalAccount/AccountInfo';
 import BusinessDetails from './components/personalAccount/BusinessDetails';
 import CardDetails from './components/personalAccount/CardDetails';
+
+import AccountInfoGoogle from './components/personalAccountGoogle/AccountInfoGoogle';
+import BusinessDetailsGoogle from './components/personalAccountGoogle/BusinessDetailsGoogle';
+import CardDetailsGoogle from './components/personalAccountGoogle/CardDetailsGoogle';
+
+import AccountInfoLinkedin from './components/personalAccLinkedin/AccountInfoLinkedin';
+import BusinessDetailsLinkedin from './components/personalAccLinkedin/BusinessDetailsLinkedin';
+import CardDetailsLinkedin from './components/personalAccLinkedin/CardDetailsLinkedin';
+
+import CorporateAccInfo from './components/corporateAccount/CorporateAccInfo';
 import CorporateBusiness from './components/corporateAccount/CorporateBussiness';
 import CorporateCard from './components/corporateAccount/CorporateCard';
+
+import AgencyAccInfo from './components/agencyAccount/AgencyAccInfo'
 import AgencyBusiness from './components/agencyAccount/AgencyBusiness';
 import AgencyCard from './components/agencyAccount/AgencyCard';
+
 import Completed from './components/Completed';
 import ResetPassword from './components/extraPages/ResetPassword';
 import Login from './components/extraPages/Login';
@@ -23,11 +32,9 @@ import UserProfile from './components/profile pages/UserProfile';
 import VerifiedEmail from './components/extraPages/VerifiedEmail';
 import PasswordChanged from './components/extraPages/PasswordChanged';
 import Success from './components/extraPages/Success';
-import GoogleReg from './components/extraPages/GoogleReg';
-import AccountInfoGoogleGoogle from './components/personalAccountGoogle/AccountInfoGoogle';
-import BusinessDetailsGoogle from './components/personalAccountGoogle/BusinessDetailsGoogle';
-import CardDetailsGoogle from './components/personalAccountGoogle/CardDetailsGoogle';
-import PersonalRegMenu from './components/personalAccount/PersonalRegMenu';
+import LinkedInAccToken from './components/personalAccLinkedin/LinkedInAccToken';
+
+
 
 
 
@@ -51,9 +58,14 @@ function App() {
         <Route path='/CardDetails' element={<CardDetails />} />
 
         {/* personal register google */}
-        <Route path='/AccountInfoGoogle/:name/:email' element={<AccountInfoGoogleGoogle />} />
+        <Route path='/AccountInfoGoogle/:name/:email' element={<AccountInfoGoogle />} />
         <Route path='/BusinessDetailsGoogle' element={<BusinessDetailsGoogle />} />
         <Route path='/CardDetailsGoogle' element={<CardDetailsGoogle />} />
+
+        {/* person register linkedin */}
+        <Route path='/AccountInfoLinkedin/:accessToken' element={<AccountInfoLinkedin />} />
+        <Route path='/BusinessDetailsLinkedin' element={<BusinessDetailsLinkedin />} />
+        <Route path='/CardDetailsLinkedin' element={<CardDetailsLinkedin />} />
 
         {/* ----- Corporate account --------- */}
         <Route path='/CorporateAccInfo' element={<CorporateAccInfo />} />
@@ -72,17 +84,15 @@ function App() {
         <Route path='/auth/register/verify/:registerToken' element={<VerifiedEmail />} />
         <Route path='/auth/login' element={<Login />} />
 
-        <Route path='/auth/register/googleReg' element={<GoogleReg />} />
         <Route path='/auth/userProfile/:email' element={<UserProfile />} />
         <Route path='/auth/forgotPassword' element={<ForgotPassword />} />
         <Route path='/auth/resetPassword/:registerToken' element={<ResetPassword />} />
         <Route path='/auth/passwordChanged' element={<PasswordChanged />} />
         <Route path='/socialLoginAuth/loggedIn' element={<Success />} />
 
-        <Route path='/personalRegMenu' element={<PersonalRegMenu />} />
 
-
-
+        <Route path='/socialLogin/linkedin' element={<LinkedInCallback />} />
+        <Route path='/linkedin/:code' element={<LinkedInAccToken />} />
       </Routes>
     </Router>
 

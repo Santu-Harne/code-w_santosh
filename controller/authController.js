@@ -198,9 +198,6 @@ const authController = {
                     bcrypt.compare(Password, extUser.Password, (err, match) => {
                         if (err) assert.deepStrictEqual(err, null);
 
-                        if (!extUser)
-                            return res.status(StatusCodes.NOT_FOUND).json({ msg: "User doesn't exists.." })
-
                         if (!match) {
                             return res.status(StatusCodes.BAD_REQUEST).json({ msg: "Invalid Password" })
                         }
@@ -228,8 +225,38 @@ const authController = {
         } catch (error) {
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ msg: 'main error' })
         }
+    },
+    login_code_W: async (req, res) => {
+        try {
+            const { Email, Password } = req.body
+            // console.log({ Email, Password });
 
+            con.query(`SELECT * FROM Account_Details WHERE Email=?`, Email, function (err, response) {
+                if (err) assert.deepStrictEqual(err, null);
 
+                // user email exists or not
+                const extUser = response[0]
+                if (!extUser)
+                    return res.status(StatusCodes.NOT_FOUND).json({ msg: "User doesn't exists.." })
+
+                else {
+                    // compare password
+                    bcrypt.compare(Password, extUser.Password, (err, match) => {
+                        if (err) assert.deepStrictEqual(err, null);
+
+                        if (!match) {
+                            return res.status(StatusCodes.BAD_REQUEST).json({ msg: "Invalid Password" })
+                        }
+                        if (extUser.isVerified != true)
+                            return res.status(StatusCodes.BAD_REQUEST).json({ msg: "Your account is not verified, Please verify your account for login" })
+
+                        return res.status(StatusCodes.OK).json({ msg: "Data From Code-W", data: extUser })
+                    });
+                }
+            })
+        } catch (error) {
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ msg: 'main error' })
+        }
     },
     logout: async (req, res) => {
         try {

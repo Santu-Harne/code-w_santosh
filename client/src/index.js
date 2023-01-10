@@ -20,7 +20,7 @@ root.render(
       <DataProvider>
         <App />
       </DataProvider>
-    </GoogleOAuthProvider>;
+    </GoogleOAuthProvider>
   </React.StrictMode >
 );
 

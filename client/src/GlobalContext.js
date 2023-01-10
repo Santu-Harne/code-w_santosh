@@ -6,27 +6,26 @@ function DataProvider(props) {
 
 
 
+  // const [personalAccInfo, setPersonalAccInfo] = useState({
+  //   Account_Type: "Personal Account",
+  //   Name: "Santosh",
+  //   Email: "santosh@gmail.com",
+  //   Password: "santosh123",
+  //   Account_Plan: "Developer acount",
+  //   Team_Size: "1",
+  //   Address: "harihar",
+  //   Mobile: "8660822483",
+  //   Business_Type: "null",
+  //   Document_Type: "Aadhar",
+  //   Document_Number: "233022395979",
+  //   Document_Location: "",
+  //   Name_On_Card: "Santosh Kumar",
+  //   Card_Number: "123456789",
+  //   Expire_Date: "10/30",
+  //   isVerified: false,
+  //   Document_Object: {}
+  // })
   const [personalAccInfo, setPersonalAccInfo] = useState({
-    Account_Type: "Personal Account",
-    Name: "Santosh",
-    Email: "santosh@gmail.com",
-    Password: "santosh123",
-    Account_Plan: "Developer acount",
-    Team_Size: "1",
-    Address: "harihar",
-    Mobile: "8660822483",
-    Business_Type: "null",
-    Document_Type: "Aadhar",
-    Document_Number: "233022395979",
-    Document_Location: "",
-    Name_On_Card: "Santosh Kumar",
-    Card_Number: "123456789",
-    Expire_Date: "10/30",
-    isVerified: false,
-    Document_Object: {}
-  })
-
-  const [googleAccInfo, setGoogleAccInfo] = useState({
     Account_Type: "Personal Account",
     Name: "",
     Email: "",
@@ -35,7 +34,7 @@ function DataProvider(props) {
     Team_Size: "1",
     Address: "",
     Mobile: "",
-    Business_Type: "",
+    Business_Type: "null",
     Document_Type: "",
     Document_Number: "",
     Document_Location: "",
@@ -45,7 +44,6 @@ function DataProvider(props) {
     isVerified: false,
     Document_Object: {}
   })
-
 
   const [corpAccInfo, setCorpAccInfo] = useState({
     Account_Type: "Corporate Account",
@@ -91,8 +89,7 @@ function DataProvider(props) {
   const data = {
     personalAccInfo: [personalAccInfo, setPersonalAccInfo],
     corporateAccInfo: [corpAccInfo, setCorpAccInfo],
-    agencyAccInfo: [agencyAccInfo, setAgencyAccInfo],
-    googleAccInfo: [googleAccInfo, setGoogleAccInfo]
+    agencyAccInfo: [agencyAccInfo, setAgencyAccInfo]
   }
   return (
     <DataContext.Provider value={data}>
