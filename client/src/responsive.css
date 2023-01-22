@@ -1,0 +1,69 @@
+@media (max-width: 1440px) {
+}
+@media (769px <= width <= 991px) {
+    .progress_bar {
+        margin-top: 15px;
+        width: 80%;
+    }
+    .header-nav .container {
+        width: 110%;
+        padding-inline: 30px !important;
+        margin-inline: auto !important;
+    }
+    .profile_section {
+        padding-inline: 50px !important;
+        margin-inline: auto !important;
+    }
+    .valid-date {
+        margin-bottom: 25px;
+    }
+    .hamburger {
+        left: 25px !important;
+    }
+}
+
+@media (577px <= width <= 768px) {
+    .progress_bar {
+        margin-top: 15px;
+        width: 90%;
+    }
+    .header-nav .container {
+        width: 90% !important;
+    }
+    .profile_section {
+        width: 90% !important;
+        padding-inline: 20px !important;
+    }
+    .header-nav li.nav-item:not(:last-child) {
+        padding-right: 5px !important;
+    }
+    .valid-date {
+        margin-bottom: 25px;
+    }
+    .upgrade_plan {
+        justify-content: start !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .progress_bar {
+        margin-top: 15px;
+        width: 90%;
+    }
+    .header-nav .container {
+        width: 90% !important;
+    }
+    .profile_section {
+        width: 90% !important;
+        padding-inline: 20px !important;
+    }
+    .valid-date {
+        margin-bottom: 25px !important;
+    }
+    .upgrade_plan {
+        justify-content: start !important;
+    }
+    .hamburger {
+        left: -15px;
+    }
+}

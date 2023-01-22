@@ -1,0 +1,25 @@
+.card-image {
+    box-sizing: content-box;
+    width: 50px;
+    height: 20px;
+    background: rgba(235, 230, 230, 0.486);
+    padding: 10px;
+}
+.card-image1 {
+    box-sizing: border-box;
+    width: 70px;
+    height: 40px;
+    background: rgba(235, 230, 230, 0.486);
+}
+.card-number span {
+    font-weight: 500;
+    font-size: 14px;
+    color: grey;
+}
+.add-address button {
+    white-space: nowrap;
+}
+.address-card {
+    height: 100%;
+    white-space: nowrap;
+}

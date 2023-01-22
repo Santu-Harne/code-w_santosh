@@ -8,8 +8,8 @@ import { NavLink, useNavigate } from "react-router-dom"
 import { toast } from 'react-toastify';
 
 const initialState = {
-  Email: "",
-  Password: ""
+  Email: "santosh@gmail.com",
+  Password: "santosh123"
 }
 
 function Login() {
@@ -30,7 +30,7 @@ function Login() {
         .then(res => {
           // console.log("after login =", res.data)
           toast.success(res.data.msg)
-          navigate(`/auth/userProfile/${data.Email}`)
+          navigate(`/userProfile/${data.Email}`)
           setData(initialState)
         }).catch(err => toast.error(err.response.data.msg))
     } catch (error) {
@@ -86,7 +86,6 @@ function Login() {
   const linkedInLogin = () => {
     alert("Login with linkedin")
   }
-  // POST  https://www.linkedin.com/oauth/v2/accessToken?code=AQR_5qK2Uf3nLgjkSYYVnTOutei4gMwy9TQ5F2Tdyksw0DW-xbyuUzk8IKuAMzpA1vxWo-6dv8TM7cxsgldYGddxm3uNpu3rnCPM05jYIH03rfFjQOd31e7XvZ8Bne1v8eEhoCs1391A1YjijQH2nwFH_M67_cT_-XIHNHjZJ7OjOZaoSpVNqtb3fNRcI_TGqBNpJH-vaFj-MUhfKsc&grant_type=authorization_code&client_id=86nuopuv1g357y&client_secret=QxsjSZHzsW2Sswr3&redirect_uri=http://localhost:3000/socialAuth/linkedin
 
   return (
     <div className="Auth-form-container bg-primary" style={{ backgroundImage: "url(https://wallup.net/wp-content/uploads/2016/03/10/321535-photography-landscape-nature-night-field-trees.jpg)", backgroundRepeat: "no-repeat", backgroundSize: "cover" }}>

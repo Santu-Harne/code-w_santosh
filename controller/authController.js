@@ -20,7 +20,7 @@ const axiosIns = axios.create({
 const authController = {
     register: async (req, res) => {
         try {
-            const { Account_Type, Name, Email, Password, Account_Plan, Team_Size, Address, Mobile, Business_Type, Document_Type, Document_Number, Document_Location, Name_On_Card, Card_Number, Expire_Date, isVerified } = req.body
+            const { Account_Type, Name, Email, Image, Password, Account_Plan, Team_Size, Address, Mobile, Business_Type, Document_Type, Document_Number, Document_Location, Name_On_Card, Card_Type, Card_Number, Expire_Date, isVerified } = req.body
 
             const encPass = await bcrypt.hash(Password, 10)
             const registerToken = regToken({ email: Email, password: Password })
@@ -29,6 +29,7 @@ const authController = {
                 Account_Type,
                 Name,
                 Email,
+                Image,
                 Password: encPass,
                 Account_Plan,
                 Team_Size,
@@ -44,6 +45,13 @@ const authController = {
                 isVerified,
                 registerToken
             }
+            const cardData = {
+                Email,
+                Name_On_Card,
+                Card_Type,
+                Card_Number,
+                Expire_Date,
+            }
 
             let sql1 = `SELECT * FROM Account_Details WHERE Email=?`
             con.query(sql1, [Email], function (err, response) {
@@ -56,10 +64,15 @@ const authController = {
 
                 else {
                     let sql = `INSERT INTO Account_Details SET ?`
+                    let cardSql = `INSERT INTO my_cards SET ?`
 
                     con.query(sql, userData, function (err, response) {
                         if (err) assert.deepStrictEqual(err, null);
                         // console.log(`Inserted successfully`)
+
+                        con.query(cardSql, cardData, function (err, response) {
+                            if (err) assert.deepStrictEqual(err, null)
+                        })
 
                         const subject = 'Confirmation of registration with Code-W'
                         if (isVerified === false) {
@@ -344,6 +357,76 @@ const authController = {
 
         } catch (error) {
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ msg: error.message })
+        }
+    },
+    addCard: async (req, res) => {
+        try {
+            const { Email, Name_On_Card, Card_Type, Card_Number, Expire_Date } = req.body
+
+            const cardData = {
+                Email,
+                Name_On_Card,
+                Card_Type,
+                Card_Number,
+                Expire_Date,
+            }
+            let cardSql = `INSERT INTO my_cards SET ?`
+
+            con.query(cardSql, cardData, function (err, response) {
+                if (err) assert.deepStrictEqual(err, null)
+
+                res.status(StatusCodes.OK).json({ msg: "Card added successfully" })
+            })
+        } catch (error) {
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ msg: error.message })
+        }
+    },
+    getCards: async (req, res) => {
+        try {
+            const email = req.params.email
+
+            // read single user data
+            let sql = `SELECT * FROM my_cards WHERE Email=?`
+            con.query(sql, [email], function (err, response) {
+                if (err) assert.deepStrictEqual(err, null);
+                // console.log(`data = `, response)
+
+                res.status(StatusCodes.OK).json({ msg: "User Cards", data: response })
+            })
+        } catch (error) {
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ msg: err.message })
+        }
+    },
+    getBillingAddress: async (req, res) => {
+        try {
+            const email = req.params.email
+
+            // read single user data
+            let sql = `SELECT * FROM billing_address WHERE Email=?`
+            con.query(sql, [email], function (err, response) {
+                if (err) assert.deepStrictEqual(err, null);
+                // console.log(`data = `, response)
+
+                res.status(StatusCodes.OK).json({ msg: "Billing Address", data: response })
+            })
+        } catch (error) {
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ msg: err.message })
+        }
+    },
+    getBillingHistory: async (req, res) => {
+        try {
+            const email = req.params.email
+
+            // read single user data
+            let sql = `SELECT * FROM billing_history WHERE Email=?`
+            con.query(sql, [email], function (err, response) {
+                if (err) assert.deepStrictEqual(err, null);
+                // console.log(`data = `, response)
+
+                res.status(StatusCodes.OK).json({ msg: "Billing History", data: response })
+            })
+        } catch (error) {
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ msg: err.message })
         }
     }
 }

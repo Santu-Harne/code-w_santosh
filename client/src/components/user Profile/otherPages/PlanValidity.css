@@ -1,0 +1,34 @@
+body {
+    background: rgba(224, 223, 223, 0.74) !important;
+    overflow-x: hidden;
+}
+.warning p {
+    margin: 0;
+}
+.warning .bi::before {
+    padding: 0% !important;
+    width: 30px;
+    height: 30px;
+    margin-inline: 20px;
+    font-size: 30px;
+    color: rgba(247, 212, 100, 0.993);
+    background: rgb(255, 102, 0);
+    border-radius: 50%;
+}
+.warning a {
+    text-decoration: none;
+    font-weight: bold;
+}
+.warning {
+    background: rgba(238, 215, 141, 0.514);
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: 1px dashed rgba(255, 102, 0, 0.363);
+}
+.valid-date span:nth-child(2) {
+    font-size: 15px;
+}
+.upgrade_plan {
+    display: flex;
+    justify-content: end;
+}

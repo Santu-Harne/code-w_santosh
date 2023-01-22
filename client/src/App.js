@@ -1,4 +1,5 @@
 import React from 'react';
+import './responsive.css'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { LinkedInCallback } from 'react-linkedin-login-oauth2';
@@ -28,7 +29,7 @@ import Completed from './components/Completed';
 import ResetPassword from './components/extraPages/ResetPassword';
 import Login from './components/extraPages/Login';
 import ForgotPassword from './components/extraPages/ForgotPassword';
-import UserProfile from './components/profile pages/UserProfile';
+import UserProfile from './components/user Profile/UserProfile';
 import VerifiedEmail from './components/extraPages/VerifiedEmail';
 import PasswordChanged from './components/extraPages/PasswordChanged';
 import Success from './components/extraPages/Success';
@@ -51,6 +52,7 @@ function App() {
       <Routes>
 
         <Route path='/' element={<HomePage />} />
+        {/* <Route path='/' element={<UserProfile />} /> */}
 
         {/* ------personal account ------- */}
         <Route path='/AccountInfo' element={<AccountInfo />} />
@@ -84,7 +86,7 @@ function App() {
         <Route path='/auth/register/verify/:registerToken' element={<VerifiedEmail />} />
         <Route path='/auth/login' element={<Login />} />
 
-        <Route path='/auth/userProfile/:email' element={<UserProfile />} />
+        <Route path='/userProfile/:email' element={<UserProfile />} />
         <Route path='/auth/forgotPassword' element={<ForgotPassword />} />
         <Route path='/auth/resetPassword/:registerToken' element={<ResetPassword />} />
         <Route path='/auth/passwordChanged' element={<PasswordChanged />} />

@@ -4,7 +4,6 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { GoogleOAuthProvider } from '@react-oauth/google';
-
 import DataProvider from './GlobalContext';
 
 import 'bootstrap/dist/css/bootstrap.min.css'

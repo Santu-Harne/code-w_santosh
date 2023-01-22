@@ -15,6 +15,10 @@ route.get('/refreshToken', authController.refreshToken)
 route.get('/register/verify/:registerToken', authController.isVerified)
 route.post('/forgotPassword', authController.forgotPassword)
 route.put('/resetPassword/:registerToken', authController.resetPassword)
+route.post('/addcard', authController.addCard)
+route.get('/getcards/:email', authController.getCards)
+route.get('/getbillingaddress/:email', authController.getBillingAddress)
+route.get('/billinghistory/:email', authController.getBillingHistory)
 
 route.post('/login/code_w', authController.login_code_W)
 

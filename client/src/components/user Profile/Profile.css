@@ -1,0 +1,106 @@
+.display-img {
+    width: 150px;
+    border-radius: 10px;
+}
+.img-div .online {
+    position: absolute;
+    top: 70%;
+    left: 145px;
+    border-radius: 50%;
+    border: 6px solid rgb(6, 243, 6);
+    background: rgb(6, 243, 6);
+    outline: 4px solid white;
+}
+.upgrade-btn {
+    margin-left: 30px;
+    background-color: rgba(178, 233, 178, 0.829) !important;
+    font-size: small;
+    font-weight: 500;
+    padding: 3px 12px;
+    color: green;
+    border: none;
+    border-radius: 5px;
+}
+
+.heading span {
+    color: grey;
+    font-size: 13px;
+    position: absolute;
+    top: 30px;
+    left: 0px;
+    width: 100px;
+}
+.dev-info span {
+    margin-right: 10px;
+}
+.dev-info * {
+    padding-inline-end: 10px;
+    color: grey;
+}
+.user_stats {
+    border: 2px dashed rgba(128, 128, 128, 0.253);
+    border-radius: 10px;
+    padding-inline: 15px;
+    padding-block: 6px;
+    font-weight: bold;
+    width: 130px;
+    margin-right: 20px;
+    white-space: nowrap;
+}
+.user_stats p {
+    margin-bottom: 0;
+}
+.user_stats span {
+    font-size: 14px;
+    font-weight: 500;
+}
+.user_stats i {
+    -webkit-text-stroke: 1px;
+}
+.progress {
+    height: 10px !important;
+}
+.router .route-btn:hover {
+    color: rgb(44, 113, 240);
+    text-decoration: underline;
+    text-decoration-thickness: 3px;
+    text-underline-offset: 20px;
+}
+.btn.route-btn {
+    color: grey;
+    border-color: transparent !important;
+    padding-bottom: 0;
+}
+
+.route-btn-active {
+    color: rgb(44, 113, 240) !important;
+    text-decoration: underline;
+    text-decoration-thickness: 3px;
+    text-underline-offset: 20px;
+}
+.profile_section button {
+    font-weight: 500;
+}
+
+.hamburger {
+    position: absolute;
+    top: -45px;
+    left: -10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin: 0 0 0 10px;
+    background-color: rgb(243, 240, 240);
+    box-shadow: 2px 3px 10px -5px #756388;
+    border-radius: 5px;
+    height: 35px;
+    width: 35px;
+}
+.hamburger i {
+    transition: 0.4s;
+    -webkit-text-stroke-width: 1px;
+    color: grey;
+}
+.hamburger.isExpend {
+    left: -25px;
+}

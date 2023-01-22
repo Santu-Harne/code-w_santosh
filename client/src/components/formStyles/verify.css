@@ -1,21 +1,17 @@
 /* verify.css*/
 
-.container-fluid {
+/* .container-fluid {
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-}
-.container-fluid .card {
+} */
+/* .container-fluid .card {
     height: 100vh;
     width: 100%;
-    /* background-color: #fff; */
     position: relative;
-    /* box-shadow: 0 15px 30px rgb(0 0 0 / 10%); */
     font-family: "Poppins", sans-serif;
-    /* border-radius: 11px; */
-    display: contents;
-}
+} */
 
 /* verify.css*/
 form.verifyForm {
@@ -28,9 +24,9 @@ form.verifyForm {
     padding: 46px 130px;
 }
 
-.card {
+/* .card {
     display: contents;
-}
+} */
 
 .skpNow {
     margin: 0px 0px 51px 24px;

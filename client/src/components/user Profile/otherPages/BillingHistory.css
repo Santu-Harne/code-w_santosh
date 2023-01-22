@@ -1,0 +1,30 @@
+.active-view {
+    border-bottom: 5px solid rgb(0, 110, 255);
+}
+.card-header li {
+    cursor: pointer;
+    padding-block: 10px 15px;
+    margin-right: 20px;
+    font-size: 18px;
+}
+.history-table * {
+    color: rgb(95, 92, 92);
+}
+.history-table td,
+.history-table th {
+    padding-inline: 25px !important;
+}
+.history-table td {
+    padding-block: 10px !important;
+    font-weight: 500;
+    font-size: 15px;
+}
+.history-table button {
+    background-color: rgba(128, 128, 128, 0.24);
+    font-weight: 500;
+}
+.history-table {
+    width: 100%;
+    overflow-x: auto !important;
+    white-space: nowrap;
+}

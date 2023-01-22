@@ -1,0 +1,96 @@
+:root {
+    --primary: #55717e;
+    --dark: #262633;
+    --grey: #756388;
+    --light: #ffffff;
+}
+
+.side-nav-container {
+    background-color: var(--dark);
+    width: 220px;
+    height: 100%;
+    position: relative;
+    font-size: 14px;
+}
+.side-nav-container-NX {
+    width: 0px;
+}
+
+.nav-brand {
+    display: flex;
+}
+.nav-brand img {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+.nav-menu {
+    grid-template-rows: repeat(7, 1fr);
+}
+.nav-upper li {
+    font-weight: 500;
+}
+.menu-item {
+    display: flex;
+    color: var(--light);
+    margin: auto 20px;
+}
+.menu-item i {
+    width: 30px;
+}
+.drop-toggle {
+    position: absolute;
+    right: 0;
+    cursor: pointer;
+}
+.drop-toggle i {
+    font-size: 10px;
+    background-color: white;
+    padding: 0 3px;
+    border-radius: 3px;
+    color: grey;
+    -webkit-text-stroke-width: 1px;
+}
+.drop-menu {
+    list-style-type: disc;
+    list-style-position: inside;
+    font-size: 14px;
+}
+.drop-on {
+    display: block;
+}
+.drop-off {
+    display: none;
+}
+.drop-menu li {
+    position: relative;
+    margin-inline: 20px;
+    padding-left: 25px;
+    border-radius: 10px;
+    cursor: pointer;
+    color: grey;
+    font-weight: 500;
+}
+.drop-menu .nav-link {
+    display: inline-block;
+}
+.btn.nav-link {
+    padding: 10px 60px 10px 0px;
+}
+.btn.nav-link:active {
+    border-color: transparent;
+}
+.drop-menu li:hover {
+    background-color: #39395c;
+    color: white;
+}
+.nav-link-active {
+    background-color: #39395c;
+    color: white !important;
+}
+.menu-item .bi {
+    color: white;
+}
+.menu-item .bi-code-slash {
+    -webkit-text-stroke-width: 1px;
+}

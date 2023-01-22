@@ -6,21 +6,18 @@
     padding: 0;
     margin: 0;
 }
-.container-fluid {
+/* .container-fluid {
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-}
-.container-fluid .card {
+} */
+/* .container-fluid .card {
     height: 100vh;
     width: 100%;
-    /* background-color: #fff; */
     position: relative;
-    /* box-shadow: 0 15px 30px rgb(0 0 0 / 10%); */
     font-family: "Poppins", sans-serif;
-    /* border-radius: 11px; */
-}
+} */
 
 .container-fluid .card .form {
     width: 100%;
@@ -31,8 +28,6 @@
     width: 35%;
     background-color: #1471e6;
     height: 100%;
-    /* border-top-left-radius: 20px; */
-    /* border-bottom-left-radius: 20px; */
     padding: 20px 30px;
     box-sizing: border-box;
 }
@@ -99,7 +94,6 @@ form.d-flex {
 .progress-bar {
     list-style: none;
     color: #fff;
-    margin-top: 10px;
     font-size: 13px;
     font-weight: 700;
     counter-reset: container 0;
