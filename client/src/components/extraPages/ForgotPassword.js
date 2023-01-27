@@ -10,7 +10,7 @@ import { toast } from 'react-toastify';
 function ForgotPassword() {
     const navigate = useNavigate()
     const [data, setData] = useState({
-        Email: "santosh.283143@gmail.com1",
+        Email: "",
     })
 
     const readValue = (e) => {
@@ -39,7 +39,7 @@ function ForgotPassword() {
     }, [data])
 
     return (
-        <div className="container-fluid">
+        <div className="container-fluid forgot-password">
             <div className="card">
                 <form className='verifyForm'>
                     <div className='vrfyEmail'>

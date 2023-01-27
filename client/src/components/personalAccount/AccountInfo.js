@@ -18,49 +18,7 @@ const AccountInfo = () => {
     const BusinessDetails = () => { navigate('/BusinessDetails') }
     const CardDetails = () => { navigate('/CardDetails') }
 
-    // const validate = (e , name , value) => {
-    //     e.preventDefault()
-    //     switch(name) {
-    //         case "Name" : if(value.length === 0){
 
-    //                 toast.error("name field should not be empty");
-
-    //             }else if(value.length < 4) {
-
-    //                 toast.error("Name Alteast have 4 characters");
-    //             }
-    //             break;
-    //         case "Email" :
-    //             if(value.length === 0){
-
-    //                 toast.error("Email field must be filled")
-    //             }else if(!new RegExp (/^[-a-z A-Z 0-9 \S]+@[a-z \s]+\.[c][o][m]+$/).test(value)){
-
-    //                 toast.error("Invalid email format");
-    //             }
-    //             break;
-    //             case "Password" :
-    //                 if(value.length < 8){
-
-    //                     toast.error("Password must have 8 character long");
-    //                 }else if(!new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})").test(value)) {
-
-    //                     toast.error("Minimum eight characters, at least one letter, one number and one special character:");
-    //                 }
-    //                 break;
-    //                 case  "radio" :
-    //                     if(value.radio === 0) {
-
-    //                         toast.error("Select atleast one radio button");
-    //                     } else{
-    //                         toast.error("Success");
-
-    //                     }
-    //         default: 
-
-
-    //     }
-    // }
 
     const googleRegister = useGoogleLogin({
         onSuccess: async response => {
@@ -81,25 +39,27 @@ const AccountInfo = () => {
         }
     });
 
-    const { linkedInLogin } = useLinkedIn({
-        clientId: '86lgzg6lwebek8',
-        redirectUri: `http://localhost:3000/socialLogin/linkedin`, // for Next.js, you can use `${typeof window === 'object' && window.location.origin}/linkedin`,
-        onSuccess: (code) => {
-            // console.log(code);
-            navigate(`/linkedin/${code}`)
-        },
-        onError: (error) => {
-            console.log(error);
-        },
-        scope: "r_emailaddress r_liteprofile",
-    });
-    // const linkedInLogin = () => {
-    //     alert("register with linkedin")
+    // const { linkedInLogin } = useLinkedIn({
+    //     clientId: '86lgzg6lwebek8',
+    //     redirectUri: `http://localhost:3000/socialLogin/linkedin`, // for Next.js, you can use `${typeof window === 'object' && window.location.origin}/linkedin`,
+    //     onSuccess: (code) => {
+    //         // console.log(code);
+    //         navigate(`/linkedin/${code}`)
+    //     },
+    //     onError: (error) => {
+    //         console.log(error);
+    //     },
+    //     scope: "r_emailaddress r_liteprofile",
+    // });
+    // const googleRegister = () => {
+    //     alert("Register with google")
     // }
+    const linkedInLogin = () => {
+        alert("Register with linkedin")
+    }
     const readValue = (e) => {
         e.preventDefault()
         const { name, value } = e.target
-        // validate(e,name,value)
         setPersonalAccInfo({ ...personalAccInfo, [name]: value })
     }
 

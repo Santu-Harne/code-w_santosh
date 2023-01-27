@@ -8,8 +8,8 @@ import { NavLink, useNavigate } from "react-router-dom"
 import { toast } from 'react-toastify';
 
 const initialState = {
-  Email: "santosh@gmail.com",
-  Password: "santosh123"
+  Email: "max@kt.com",
+  Password: "max123"
 }
 
 function Login() {
@@ -42,6 +42,9 @@ function Login() {
     // console.log(data)
   }, [data])
 
+  // const googleLogin = () => {
+  //   alert("Login with google")
+  // }
   const googleLogin = useGoogleLogin({
     onSuccess: async response => {
       try {

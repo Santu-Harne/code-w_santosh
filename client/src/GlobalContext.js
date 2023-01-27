@@ -4,27 +4,6 @@ export const DataContext = createContext()
 
 function DataProvider(props) {
 
-
-
-  // const [personalAccInfo, setPersonalAccInfo] = useState({
-  // Account_Type: "Personal Account",
-  // Name: "Santosh",
-  // Email: "santosh@gmail.com",
-  // Password: "santosh123",
-  // Account_Plan: "Developer acount",
-  // Team_Size: "1",
-  // Address: "harihar",
-  // Mobile: "8660822483",
-  // Business_Type: "null",
-  // Document_Type: "Aadhar",
-  // Document_Number: "233022395979",
-  // Document_Location: "",
-  // Name_On_Card: "Santosh Kumar",
-  // Card_Number: "123456789",
-  // Expire_Date: "10/30",
-  // isVerified: false,
-  //   Document_Object: {}
-  // })
   const [personalAccInfo, setPersonalAccInfo] = useState({
     Account_Type: "Personal Account",
     Name: "",

@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 
 function PasswordChanged() {
     return (
-        <div className="container bg-info mt-5 p-3">
+        <div className="container bg-info p-3">
             <div className="row  p-5">
                 <div className="col-md-6 offset-md-3">
                     <div className='mt-2 justify-content-center align-items-center'>

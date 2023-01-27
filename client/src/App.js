@@ -34,6 +34,10 @@ import VerifiedEmail from './components/extraPages/VerifiedEmail';
 import PasswordChanged from './components/extraPages/PasswordChanged';
 import Success from './components/extraPages/Success';
 import LinkedInAccToken from './components/personalAccLinkedin/LinkedInAccToken';
+import AddCard from './components/user Profile/otherPages/AddCard';
+import EditCard from './components/user Profile/otherPages/EditCard';
+import AddAddress from './components/user Profile/otherPages/AddAddress';
+import EditAddress from './components/user Profile/otherPages/EditAddress';
 
 
 
@@ -95,6 +99,12 @@ function App() {
 
         <Route path='/socialLogin/linkedin' element={<LinkedInCallback />} />
         <Route path='/linkedin/:code' element={<LinkedInAccToken />} />
+
+        <Route path='/userProfile/addCard/:email' element={<AddCard />} />
+        <Route path='/userProfile/editCard/:email/:id' element={<EditCard />} />
+        <Route path='/userProfile/addAddress/:email' element={<AddAddress />} />
+        <Route path='/userProfile/editAddress/:email/:id' element={<EditAddress />} />
+
       </Routes>
     </Router>
 

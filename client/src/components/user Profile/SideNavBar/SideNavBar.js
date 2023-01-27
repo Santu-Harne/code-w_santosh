@@ -8,7 +8,7 @@ function SideNavBar(props) {
     const [dropdown, setDropdown] = useState(true)
 
     return (
-        <div className={isExpended ? 'side-nav-container' : 'side-nav-container side-nav-container-NX'}>
+        <div className={isExpended ? 'side-nav-container' : 'side-nav-container-NX'}>
             <div className="nav-upper">
                 {isExpended &&
                     (<div className="nav-brand pt-2 ps-2">

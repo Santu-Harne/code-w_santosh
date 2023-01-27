@@ -375,8 +375,57 @@ const authController = {
             con.query(cardSql, cardData, function (err, response) {
                 if (err) assert.deepStrictEqual(err, null)
 
-                res.status(StatusCodes.OK).json({ msg: "Card added successfully" })
+                res.status(StatusCodes.OK).json({ msg: "Card added successfully", data: response })
             })
+        } catch (error) {
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ msg: error.message })
+        }
+    },
+    getSingleCard: async (req, res) => {
+        try {
+            const id = req.params.id
+
+            // read single user data
+            let sql = `SELECT * FROM my_cards WHERE Id=?`
+            con.query(sql, [id], function (err, response) {
+                if (err) assert.deepStrictEqual(err, null);
+                // console.log(`data = `, response)
+
+                res.status(StatusCodes.OK).json({ msg: "User Card Data", data: response[0] })
+            })
+        } catch (error) {
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ msg: err.message })
+        }
+    },
+    EditCard: async (req, res) => {
+        try {
+            const id = req.params.id
+            const { Name_On_Card, Card_Type, Card_Number, Expire_Date } = req.body
+
+            let sql = 'UPDATE my_cards SET Name_On_Card = ?, Card_Type = ?, Card_Number = ?, Expire_Date = ?  WHERE id =?'
+
+            con.query(sql, [Name_On_Card, Card_Type, Card_Number, Expire_Date, id], function (err, response) {
+                if (err) assert.deepStrictEqual(err, null);
+
+                res.status(StatusCodes.OK).json({ msg: "Card Data updated successfully", updatedData: req.body })
+            })
+        } catch (error) {
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ msg: err.message })
+        }
+    },
+    deleteCard: async (req, res) => {
+        try {
+            const id = req.params.id
+
+            // delete single user
+            let sql = `DELETE FROM my_cards WHERE id=?`
+            con.query(sql, [id], function (err, response) {
+                if (err) assert.deepStrictEqual(err, null);
+                // console.log("Payment Card deleted successfully")
+
+                res.status(StatusCodes.OK).json({ msg: "Payment Card deleted successfully" })
+            })
+
         } catch (error) {
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ msg: error.message })
         }
@@ -397,6 +446,28 @@ const authController = {
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ msg: err.message })
         }
     },
+    addAddress: async (req, res) => {
+        try {
+            const { Email, Address_Name, street, city, country } = req.body
+
+            const addressData = {
+                Email,
+                Address_Name,
+                street,
+                city,
+                country,
+            }
+            let addressSql = `INSERT INTO billing_address SET ?`
+
+            con.query(addressSql, addressData, function (err, response) {
+                if (err) assert.deepStrictEqual(err, null)
+
+                res.status(StatusCodes.OK).json({ msg: "Card added successfully", data: response })
+            })
+        } catch (error) {
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ msg: error.message })
+        }
+    },
     getBillingAddress: async (req, res) => {
         try {
             const email = req.params.email
@@ -411,6 +482,55 @@ const authController = {
             })
         } catch (error) {
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ msg: err.message })
+        }
+    },
+    getSingleAddress: async (req, res) => {
+        try {
+            const id = req.params.id
+
+            // read single user data
+            let sql = `SELECT * FROM billing_address WHERE Id=?`
+            con.query(sql, [id], function (err, response) {
+                if (err) assert.deepStrictEqual(err, null);
+                // console.log(`data = `, response)
+
+                res.status(StatusCodes.OK).json({ msg: "User Address Data", data: response[0] })
+            })
+        } catch (error) {
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ msg: err.message })
+        }
+    },
+    EditAddress: async (req, res) => {
+        try {
+            const id = req.params.id
+            const { Address_Name, street, city, country } = req.body
+
+            let sql = 'UPDATE billing_address SET Address_Name = ?, street = ?, city = ?, country = ?  WHERE id =?'
+
+            con.query(sql, [Address_Name, street, city, country, id], function (err, response) {
+                if (err) assert.deepStrictEqual(err, null);
+
+                res.status(StatusCodes.OK).json({ msg: "Address updated successfully", updatedData: req.body })
+            })
+        } catch (error) {
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ msg: err.message })
+        }
+    },
+    deleteAddress: async (req, res) => {
+        try {
+            const id = req.params.id
+
+            // delete single user
+            let sql = `DELETE FROM billing_address WHERE id=?`
+            con.query(sql, [id], function (err, response) {
+                if (err) assert.deepStrictEqual(err, null);
+                // console.log("Payment Card deleted successfully")
+
+                res.status(StatusCodes.OK).json({ msg: "Address deleted successfully" })
+            })
+
+        } catch (error) {
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ msg: error.message })
         }
     },
     getBillingHistory: async (req, res) => {

@@ -15,9 +15,20 @@ route.get('/refreshToken', authController.refreshToken)
 route.get('/register/verify/:registerToken', authController.isVerified)
 route.post('/forgotPassword', authController.forgotPassword)
 route.put('/resetPassword/:registerToken', authController.resetPassword)
-route.post('/addcard', authController.addCard)
-route.get('/getcards/:email', authController.getCards)
-route.get('/getbillingaddress/:email', authController.getBillingAddress)
+
+route.post('/userProfile/addcard', authController.addCard)
+route.get('/userProfile/getcards/:email', authController.getCards)
+route.get('/userProfile/getsinglecard/:id', authController.getSingleCard)
+route.put('/userProfile/editcard/:id', authController.EditCard)
+route.delete('/userProfile/deletecard/:id', authController.deleteCard)
+
+route.post('/userProfile/addaddress', authController.addAddress)
+route.get('/userProfile/getbillingaddress/:email', authController.getBillingAddress)
+route.get('/userProfile/getsingleaddress/:id', authController.getSingleAddress)
+route.put('/userProfile/editaddress/:id', authController.EditAddress)
+route.delete('/userProfile/deleteaddress/:id', authController.deleteAddress)
+
+
 route.get('/billinghistory/:email', authController.getBillingHistory)
 
 route.post('/login/code_w', authController.login_code_W)

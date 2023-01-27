@@ -22,9 +22,9 @@ const VerifiedEmail = () => {
         isVerified()
     }, [])
     return (
-        <div className='container mt-5'>
+        <div className='container verified-acc mt-5'>
             <div className="row">
-                <div className="col-md-6 offset-md-3">
+                <div className="col-md-6 ">
                     <div className='card'>
                         <div className="card-body">
                             <form className='verifyForm' style={{ background: "radial-gradient(ellipse at top right,gold,deepskyblue)" }}>

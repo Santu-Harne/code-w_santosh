@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import NavBar from './NavBar';
 import Profile from './Profile';
-import OtherPage from './otherPages/OtherPage';
-import Billing from './Billing';
 import SideNavBar from './SideNavBar/SideNavBar';
 import Footer from './Footer'
 import axios from 'axios'

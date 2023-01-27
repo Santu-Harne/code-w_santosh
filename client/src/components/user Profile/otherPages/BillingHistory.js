@@ -69,7 +69,7 @@ function BillingHistory(props) {
                                             return (
                                                 <tr key={index} className='overflow-x-auto'>
                                                     <td >{item.Date}</td>
-                                                    <td className={item.Description == 'Paypal' ? 'text-secondary' : 'text-primary'}>{item.Description}</td>
+                                                    <td className={item.Description === 'Paypal' ? 'text-secondary' : 'text-primary'}>{item.Description}</td>
                                                     <td>${item.Amount}</td>
                                                     <td><button className='btn btn-sm'>PDF</button></td>
                                                     <td><button className='btn btn-sm'>View</button></td>

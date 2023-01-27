@@ -1,11 +1,25 @@
 import React, { } from 'react'
+import axios from 'axios'
 import Billing from './Billing'
 import OtherPage from './otherPages/OtherPage'
 import './Profile.css'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify';
 
 
 function Profile(props) {
     const { isExpended, setIsExpended, tabMenu, changeTabMenu, userInfo } = props
+    const navigate = useNavigate()
+
+    const logoutHandler = () => {
+        if (window.confirm("Are you sure to logout..?")) {
+            axios.get('/auth/logout')
+                .then(res => {
+                    toast.success(res.data.msg)
+                    navigate('/auth/login')
+                }).catch(err => console.log(err.message))
+        }
+    }
 
     return (
         <div className={`${isExpended ? 'isExpended' : null} container py-3 profile_section position-relative`}>
@@ -13,11 +27,12 @@ function Profile(props) {
                 <span>{isExpended ? <i className="bi bi-chevron-double-left"></i> : <i className="bi bi-chevron-double-right"></i>}</span>
             </button>
             <div className="row ">
-                <div className="d-flex justify-content-between p-0">
+                <div className="d-flex justify-content-between p-0 flex-wrap">
                     <h4 className='heading position-relative'>Profile <span>Home - Account</span></h4>
                     <div>
-                        <button className='btn  btn-sm btn-light me-2 text-secondary'><i className="bi bi-funnel-fill text-secondary"></i>Filter</button>
-                        <button className='btn btn-sm btn-primary'>Create</button>
+                        <button className='btn btn-sm btn-light me-2 text-secondary'><i className="bi bi-funnel-fill text-secondary"></i>Filter</button>
+                        <button className='btn btn-sm btn-primary me-2'>Create</button>
+                        <button className='btn btn-sm btn-secondary' onClick={logoutHandler}>Logout</button>
                     </div>
                 </div>
             </div>
@@ -73,7 +88,7 @@ function Profile(props) {
                                                 <label className='fs-6 text-secondary mb-2'>Profile Completion</label>
                                                 <label className='fs-6 fw-bold mb-2 float-end'>50%</label>
                                                 <div className="progress" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                                                    <div className="progress-bar bg-success w-50"></div>
+                                                    <div className="profile-complete w-50"></div>
                                                 </div>
                                             </div>
                                         </div>
